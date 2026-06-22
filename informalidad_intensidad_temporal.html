@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_913c72df416c71e445699d895e2666b2 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iso8601-js-period@0.2.1/iso8601.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-timedimension@1.1.1/dist/leaflet.timedimension.control.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_913c72df416c71e445699d895e2666b2" ></div>
+        
+    
+<div style="position: fixed; top: 10px; left: 50px; z-index: 9999;
+    background-color: rgba(0,0,0,0.78); padding: 12px 18px; border-radius: 8px;
+    color: white; font-family: Arial; box-shadow: 0 2px 8px rgba(0,0,0,0.4);">
+    <h3 style="margin:0; font-size:20px;">Informalidad laboral en el Perú · 2020–2024</h3>
+    <p style="margin:4px 0 0 0; font-size:13px;">
+        Evolución departamental de la tasa de empleo informal (pandemia y recuperación)
+    </p>
+</div>
+    
+<div style="position: fixed; top: 10px; right: 50px; z-index: 9999; color: white;
+    font-family: Arial; font-size: 11px; background-color: rgba(0,0,0,0.55);
+    padding: 6px 10px; border-radius: 5px;">
+    Fuente: INEI – ENAHO / Cuenta Satélite de la Economía Informal | Elaborado por: [Melany Vega]
+</div>
+    
+<div style="position: fixed; bottom: 95px; right: 12px; z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.95); padding: 10px 12px; border-radius: 8px;
+    color: #1a1a1a; font-family: Arial, sans-serif; font-size: 11px;
+    border: 1px solid #ccc; box-shadow: 2px 2px 6px rgba(0,0,0,0.15); line-height: 1.6;">
+    <b style="font-size: 12px;">Tasa de Informalidad</b><br>
+    <div style="margin-top: 5px;">
+        <span style="color:#2c7fb8; font-size: 14px; margin-right: 5px;">■</span> Menos de 60%<br>
+        <span style="color:#41b6c4; font-size: 14px; margin-right: 5px;">■</span> 60% - 70%<br>
+        <span style="color:#fed976; font-size: 14px; margin-right: 5px;">■</span> 70% - 78%<br>
+        <span style="color:#fd8d3c; font-size: 14px; margin-right: 5px;">■</span> 78% - 85%<br>
+        <span style="color:#bd0026; font-size: 14px; margin-right: 5px;">■</span> 85% o más
+    </div>
+</div>
+</body>
+<script>
+    
+    
+            var map_913c72df416c71e445699d895e2666b2 = L.map(
+                "map_913c72df416c71e445699d895e2666b2",
+                {
+                    center: [-9.2, -75.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_94ad5c9ad49d7a9e1e08cfb98584086a = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_94ad5c9ad49d7a9e1e08cfb98584086a.addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            L.Control.TimeDimensionCustom = L.Control.TimeDimension.extend({
+                _getDisplayDateFormat: function(date){
+                    var newdate = new moment(date);
+                    console.log(newdate)
+                    return newdate.format("YYYY");
+                }
+            });
+            map_913c72df416c71e445699d895e2666b2.timeDimension = L.timeDimension(
+                {
+                    period: "P1Y",
+                }
+            );
+            var timeDimensionControl = new L.Control.TimeDimensionCustom(
+                {
+  "position": "bottomleft",
+  "minSpeed": 0.1,
+  "maxSpeed": 3,
+  "autoPlay": true,
+  "loopButton": true,
+  "timeSliderDragUpdate": true,
+  "speedSlider": true,
+  "playerOptions": {
+  "transitionTime": 900,
+  "loop": true,
+  "startOver": true,
+},
+}
+            );
+            map_913c72df416c71e445699d895e2666b2.addControl(this.timeDimensionControl);
+
+            var geoJsonLayer = L.geoJson({"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.05393, -5.06777]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.145}, "popup": "<b>Amazonas</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 88.1%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.97421, -14.02994]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.46}, "popup": "<b>Apur\u00edmac</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 88.8%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.47535, -15.84354]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 13.155000000000003}, "popup": "<b>Arequipa</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 65.9%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.08617, -14.08302]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.875}, "popup": "<b>Ayacucho</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 87.5%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.74536, -6.42679]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 24.36}, "popup": "<b>Cajamarca</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 90.8%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.1715, -13.18594]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.819999999999997}, "popup": "<b>Cusco</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 89.6%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.00327, -13.02513]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 25.305000000000003}, "popup": "<b>Huancavelica</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 92.9%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.03522, -9.41839]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.19}, "popup": "<b>Hu\u00e1nuco</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 88.2%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.57775, -14.23242]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 12.434999999999999}, "popup": "<b>Ica</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 64.3%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.87694, -11.54007]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 21.119999999999997}, "popup": "<b>Jun\u00edn</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 83.6%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.37451, -7.92124]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 15.9}, "popup": "<b>La Libertad</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 72.0%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.82499, -6.35226]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 16.125}, "popup": "<b>Lambayeque</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 72.5%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-77.12657, -11.94267]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#2c7fb8", "fillColor": "#2c7fb8", "fillOpacity": 0.75, "weight": 1, "radius": 9.645000000000001}, "popup": "<b>Lima Metrop./Callao</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 58.1%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.42221, -4.11731]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 21.075000000000003}, "popup": "<b>Loreto</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 83.5%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.53239, -11.98118]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.265}, "popup": "<b>Madre de Dios</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 81.7%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.83784, -16.85972]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 14.280000000000003}, "popup": "<b>Moquegua</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 68.4%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.2998, -10.39744]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.650000000000002}, "popup": "<b>Pasco</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 87.0%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.33603, -5.1311]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.22}, "popup": "<b>Piura</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 81.6%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-69.95001, -14.92685]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.819999999999997}, "popup": "<b>Puno</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 89.6%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.62944, -11.78433]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 18.284999999999997}, "popup": "<b>Regi\u00f3n Lima</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 77.3%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.71632, -7.0351]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.865000000000002}, "popup": "<b>San Mart\u00edn</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 89.7%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.27707, -17.64545]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 15.090000000000002}, "popup": "<b>Tacna</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 70.2%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.54396, -3.8554]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.4}, "popup": "<b>Tumbes</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 82.0%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-73.43895, -9.6182]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.490000000000002}, "popup": "<b>Ucayali</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 82.2%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-77.67068, -9.40511]}, "properties": {"time": "2020-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.355000000000004}, "popup": "<b>\u00c1ncash</b><br><b>A\u00f1o:</b> 2020<br><b>Informalidad:</b> 81.9%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.05393, -5.06777]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.235}, "popup": "<b>Amazonas</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 88.3%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.97421, -14.02994]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 24.27}, "popup": "<b>Apur\u00edmac</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 90.6%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.47535, -15.84354]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 14.594999999999997}, "popup": "<b>Arequipa</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 69.1%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.08617, -14.08302]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.46}, "popup": "<b>Ayacucho</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 88.8%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.74536, -6.42679]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.730000000000004}, "popup": "<b>Cajamarca</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 89.4%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.1715, -13.18594]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.740000000000002}, "popup": "<b>Cusco</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 87.2%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.00327, -13.02513]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 26.0}, "popup": "<b>Huancavelica</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 94.8%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.03522, -9.41839]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.955000000000002}, "popup": "<b>Hu\u00e1nuco</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 89.9%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.57775, -14.23242]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 14.594999999999997}, "popup": "<b>Ica</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 69.1%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.87694, -11.54007]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 21.884999999999998}, "popup": "<b>Jun\u00edn</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 85.3%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.37451, -7.92124]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 16.485}, "popup": "<b>La Libertad</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 73.3%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.82499, -6.35226]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 17.79}, "popup": "<b>Lambayeque</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 76.2%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-77.12657, -11.94267]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 11.4}, "popup": "<b>Lima Metrop./Callao</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 62.0%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.42221, -4.11731]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.155000000000005}, "popup": "<b>Loreto</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 85.9%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.53239, -11.98118]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.680000000000003}, "popup": "<b>Madre de Dios</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 80.4%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.83784, -16.85972]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 15.044999999999998}, "popup": "<b>Moquegua</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 70.1%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.2998, -10.39744]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 21.975}, "popup": "<b>Pasco</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 85.5%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.33603, -5.1311]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.445}, "popup": "<b>Piura</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 82.1%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-69.95001, -14.92685]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 24.180000000000003}, "popup": "<b>Puno</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 90.4%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.62944, -11.78433]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 18.735}, "popup": "<b>Regi\u00f3n Lima</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 78.3%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.71632, -7.0351]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.685}, "popup": "<b>San Mart\u00edn</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 89.3%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.27707, -17.64545]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 18.555000000000003}, "popup": "<b>Tacna</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 77.9%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.54396, -3.8554]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.355000000000004}, "popup": "<b>Tumbes</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 81.9%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-73.43895, -9.6182]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 21.884999999999998}, "popup": "<b>Ucayali</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 85.3%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-77.67068, -9.40511]}, "properties": {"time": "2021-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.985}, "popup": "<b>\u00c1ncash</b><br><b>A\u00f1o:</b> 2021<br><b>Informalidad:</b> 83.3%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.05393, -5.06777]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.515}, "popup": "<b>Amazonas</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 86.7%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.97421, -14.02994]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.740000000000002}, "popup": "<b>Apur\u00edmac</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 87.2%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.47535, -15.84354]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 13.65}, "popup": "<b>Arequipa</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 67.0%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.08617, -14.08302]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.155000000000005}, "popup": "<b>Ayacucho</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 85.9%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.74536, -6.42679]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.775000000000002}, "popup": "<b>Cajamarca</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 89.5%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.1715, -13.18594]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.950000000000003}, "popup": "<b>Cusco</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 81.0%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.00327, -13.02513]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.685}, "popup": "<b>Huancavelica</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 89.3%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.03522, -9.41839]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.065}, "popup": "<b>Hu\u00e1nuco</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 85.7%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.57775, -14.23242]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 10.995000000000001}, "popup": "<b>Ica</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 61.1%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.87694, -11.54007]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.590000000000003}, "popup": "<b>Jun\u00edn</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 80.2%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.37451, -7.92124]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 16.71}, "popup": "<b>La Libertad</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 73.8%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.82499, -6.35226]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 17.205000000000005}, "popup": "<b>Lambayeque</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 74.9%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-77.12657, -11.94267]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 10.77}, "popup": "<b>Lima Metrop./Callao</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 60.6%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.42221, -4.11731]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 21.255000000000003}, "popup": "<b>Loreto</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 83.9%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.53239, -11.98118]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 18.15}, "popup": "<b>Madre de Dios</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 77.0%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.83784, -16.85972]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 12.975000000000001}, "popup": "<b>Moquegua</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 65.5%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.2998, -10.39744]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.669999999999998}, "popup": "<b>Pasco</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 82.6%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.33603, -5.1311]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.14}, "popup": "<b>Piura</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 79.2%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-69.95001, -14.92685]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.730000000000004}, "popup": "<b>Puno</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 89.4%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.62944, -11.78433]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 17.159999999999997}, "popup": "<b>Regi\u00f3n Lima</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 74.8%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.71632, -7.0351]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.244999999999997}, "popup": "<b>San Mart\u00edn</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 86.1%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.27707, -17.64545]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 17.475}, "popup": "<b>Tacna</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 75.5%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.54396, -3.8554]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 18.330000000000005}, "popup": "<b>Tumbes</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 77.4%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-73.43895, -9.6182]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.445}, "popup": "<b>Ucayali</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 82.1%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-77.67068, -9.40511]}, "properties": {"time": "2022-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.905}, "popup": "<b>\u00c1ncash</b><br><b>A\u00f1o:</b> 2022<br><b>Informalidad:</b> 80.9%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.05393, -5.06777]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.11}, "popup": "<b>Amazonas</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 85.8%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.97421, -14.02994]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.515}, "popup": "<b>Apur\u00edmac</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 86.7%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.47535, -15.84354]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 12.120000000000001}, "popup": "<b>Arequipa</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 63.6%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.08617, -14.08302]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.244999999999997}, "popup": "<b>Ayacucho</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 86.1%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.74536, -6.42679]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.47}, "popup": "<b>Cajamarca</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 86.6%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.1715, -13.18594]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.590000000000003}, "popup": "<b>Cusco</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 80.2%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.00327, -13.02513]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.380000000000003}, "popup": "<b>Huancavelica</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 86.4%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.03522, -9.41839]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.94}, "popup": "<b>Hu\u00e1nuco</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 83.2%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.57775, -14.23242]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#2c7fb8", "fillColor": "#2c7fb8", "fillOpacity": 0.75, "weight": 1, "radius": 10.14}, "popup": "<b>Ica</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 59.2%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.87694, -11.54007]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 18.915}, "popup": "<b>Jun\u00edn</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 78.7%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.37451, -7.92124]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 16.259999999999998}, "popup": "<b>La Libertad</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 72.8%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.82499, -6.35226]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 16.259999999999998}, "popup": "<b>Lambayeque</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 72.8%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-77.12657, -11.94267]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#2c7fb8", "fillColor": "#2c7fb8", "fillOpacity": 0.75, "weight": 1, "radius": 9.015}, "popup": "<b>Lima Metrop./Callao</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 56.7%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.42221, -4.11731]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.634999999999998}, "popup": "<b>Loreto</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 80.3%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.53239, -11.98118]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 17.880000000000003}, "popup": "<b>Madre de Dios</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 76.4%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.83784, -16.85972]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 11.850000000000001}, "popup": "<b>Moquegua</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 63.0%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.2998, -10.39744]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.994999999999997}, "popup": "<b>Pasco</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 81.1%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.33603, -5.1311]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 17.475}, "popup": "<b>Piura</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 75.5%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-69.95001, -14.92685]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 23.685}, "popup": "<b>Puno</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 89.3%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.62944, -11.78433]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 17.025}, "popup": "<b>Regi\u00f3n Lima</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 74.5%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.71632, -7.0351]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.490000000000002}, "popup": "<b>San Mart\u00edn</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 82.2%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.27707, -17.64545]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 17.025}, "popup": "<b>Tacna</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 74.5%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.54396, -3.8554]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 18.06}, "popup": "<b>Tumbes</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 76.8%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-73.43895, -9.6182]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.409999999999997}, "popup": "<b>Ucayali</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 79.8%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-77.67068, -9.40511]}, "properties": {"time": "2023-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 18.69}, "popup": "<b>\u00c1ncash</b><br><b>A\u00f1o:</b> 2023<br><b>Informalidad:</b> 78.2%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.05393, -5.06777]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.244999999999997}, "popup": "<b>Amazonas</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 86.1%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.97421, -14.02994]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.875}, "popup": "<b>Apur\u00edmac</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 87.5%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.47535, -15.84354]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#41b6c4", "fillColor": "#41b6c4", "fillOpacity": 0.75, "weight": 1, "radius": 11.490000000000002}, "popup": "<b>Arequipa</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 62.2%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.08617, -14.08302]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 21.975}, "popup": "<b>Ayacucho</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 85.5%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.74536, -6.42679]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.650000000000002}, "popup": "<b>Cajamarca</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 87.0%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-72.1715, -13.18594]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.095}, "popup": "<b>Cusco</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 79.1%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.00327, -13.02513]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 21.884999999999998}, "popup": "<b>Huancavelica</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 85.3%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.03522, -9.41839]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 20.805000000000003}, "popup": "<b>Hu\u00e1nuco</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 82.9%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.57775, -14.23242]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#2c7fb8", "fillColor": "#2c7fb8", "fillOpacity": 0.75, "weight": 1, "radius": 10.05}, "popup": "<b>Ica</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 59.0%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.87694, -11.54007]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.05}, "popup": "<b>Jun\u00edn</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 79.0%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.37451, -7.92124]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 16.755000000000003}, "popup": "<b>La Libertad</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 73.9%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-79.82499, -6.35226]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 17.159999999999997}, "popup": "<b>Lambayeque</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 74.8%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-77.12657, -11.94267]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#2c7fb8", "fillColor": "#2c7fb8", "fillOpacity": 0.75, "weight": 1, "radius": 9.105}, "popup": "<b>Lima Metrop./Callao</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 56.9%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-74.42221, -4.11731]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.725}, "popup": "<b>Loreto</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 80.5%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.53239, -11.98118]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 17.835}, "popup": "<b>Madre de Dios</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 76.3%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.83784, -16.85972]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#2c7fb8", "fillColor": "#2c7fb8", "fillOpacity": 0.75, "weight": 1, "radius": 10.23}, "popup": "<b>Moquegua</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 59.4%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-75.2998, -10.39744]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.409999999999997}, "popup": "<b>Pasco</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 79.8%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.33603, -5.1311]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 18.015}, "popup": "<b>Piura</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 76.7%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-69.95001, -14.92685]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#bd0026", "fillColor": "#bd0026", "fillOpacity": 0.75, "weight": 1, "radius": 22.965000000000003}, "popup": "<b>Puno</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 87.7%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.62944, -11.78433]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 16.53}, "popup": "<b>Regi\u00f3n Lima</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 73.4%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-76.71632, -7.0351]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 21.165}, "popup": "<b>San Mart\u00edn</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 83.7%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-70.27707, -17.64545]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 15.719999999999997}, "popup": "<b>Tacna</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 71.6%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.54396, -3.8554]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fed976", "fillColor": "#fed976", "fillOpacity": 0.75, "weight": 1, "radius": 18.330000000000005}, "popup": "<b>Tumbes</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 77.4%<br><b>Regi\u00f3n:</b> Costa", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-73.43895, -9.6182]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 19.230000000000004}, "popup": "<b>Ucayali</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 79.4%<br><b>Regi\u00f3n:</b> Selva", "icon": "circle"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-77.67068, -9.40511]}, "properties": {"time": "2024-01-01T12:00:00+00:00", "style": {"color": "#fd8d3c", "fillColor": "#fd8d3c", "fillOpacity": 0.75, "weight": 1, "radius": 18.735}, "popup": "<b>\u00c1ncash</b><br><b>A\u00f1o:</b> 2024<br><b>Informalidad:</b> 78.3%<br><b>Regi\u00f3n:</b> Sierra", "icon": "circle"}}]}, {
+                    pointToLayer: function (feature, latLng) {
+                        if (feature.properties.icon == 'marker') {
+                            if(feature.properties.iconstyle){
+                                return new L.Marker(latLng, {
+                                    icon: L.icon(feature.properties.iconstyle)});
+                            }
+                            //else
+                            return new L.Marker(latLng);
+                        }
+                        if (feature.properties.icon == 'circle') {
+                            if (feature.properties.iconstyle) {
+                                return new L.circleMarker(latLng, feature.properties.iconstyle)
+                                };
+                            //else
+                            return new L.circleMarker(latLng);
+                        }
+                        //else
+
+                        return new L.Marker(latLng);
+                    },
+                    style: function (feature) {
+                        return feature.properties.style;
+                    },
+                    onEachFeature: function(feature, layer) {
+                        if (feature.properties.popup) {
+                        layer.bindPopup(feature.properties.popup);
+                        }
+                        if (feature.properties.tooltip) {
+                        layer.bindTooltip(feature.properties.tooltip);
+                        }
+                    }
+                })
+
+            var timestamped_geo_json_5160b847d5c71354df176af15b08f057 = L.timeDimension.layer.geoJson(
+                geoJsonLayer,
+                {
+                    updateTimeDimension: true,
+                    addlastPoint: false,
+                    duration: "P350D",
+                }
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            tile_layer_94ad5c9ad49d7a9e1e08cfb98584086a.addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var marker_de27bda1935e8cbaefcae5841c8ae879 = L.marker(
+                [-5.06777, -78.05393],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_4bcb11abbfbd4f821d9dede817f5925a = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eAmazonas\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_de27bda1935e8cbaefcae5841c8ae879.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Amazonas</b> (Selva)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 88.1%<br>• <b>2021:</b> 88.3%<br>• <b>2022:</b> 86.7%<br>• <b>2023:</b> 85.8%<br>• <b>2024:</b> 86.1%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_de27bda1935e8cbaefcae5841c8ae879.setIcon(div_icon_4bcb11abbfbd4f821d9dede817f5925a);
+            
+    
+            var marker_0b15c2cbad594bfb12ca2ba3fbe96a2f = L.marker(
+                [-14.02994, -72.97421],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_648addbe8503e8e89e8cd0d91c1e8055 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eApur\u00edmac\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_0b15c2cbad594bfb12ca2ba3fbe96a2f.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Apurímac</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 88.8%<br>• <b>2021:</b> 90.6%<br>• <b>2022:</b> 87.2%<br>• <b>2023:</b> 86.7%<br>• <b>2024:</b> 87.5%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0b15c2cbad594bfb12ca2ba3fbe96a2f.setIcon(div_icon_648addbe8503e8e89e8cd0d91c1e8055);
+            
+    
+            var marker_a7340060dd00a6a0df5d5b3f9fc230bb = L.marker(
+                [-15.84354, -72.47535],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_9110ce33f847684fd7b6887d26813d93 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eArequipa\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_a7340060dd00a6a0df5d5b3f9fc230bb.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Arequipa</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 65.9%<br>• <b>2021:</b> 69.1%<br>• <b>2022:</b> 67.0%<br>• <b>2023:</b> 63.6%<br>• <b>2024:</b> 62.2%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a7340060dd00a6a0df5d5b3f9fc230bb.setIcon(div_icon_9110ce33f847684fd7b6887d26813d93);
+            
+    
+            var marker_8beb814159aac5d4d39729cc547f21b7 = L.marker(
+                [-14.08302, -74.08617],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_8853c773b9fddea644402824c28e4c6a = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eAyacucho\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_8beb814159aac5d4d39729cc547f21b7.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Ayacucho</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 87.5%<br>• <b>2021:</b> 88.8%<br>• <b>2022:</b> 85.9%<br>• <b>2023:</b> 86.1%<br>• <b>2024:</b> 85.5%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8beb814159aac5d4d39729cc547f21b7.setIcon(div_icon_8853c773b9fddea644402824c28e4c6a);
+            
+    
+            var marker_f88fb9aa0e001eae1714122143431f05 = L.marker(
+                [-6.42679, -78.74536],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_4fa4b17e2281de5bec50f9a76064fa2b = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eCajamarca\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_f88fb9aa0e001eae1714122143431f05.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Cajamarca</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 90.8%<br>• <b>2021:</b> 89.4%<br>• <b>2022:</b> 89.5%<br>• <b>2023:</b> 86.6%<br>• <b>2024:</b> 87.0%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f88fb9aa0e001eae1714122143431f05.setIcon(div_icon_4fa4b17e2281de5bec50f9a76064fa2b);
+            
+    
+            var marker_5b62b665ff87ae1e5b86708a751b572c = L.marker(
+                [-13.18594, -72.1715],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_b68f21c56a6ceabefabd8cbae110d874 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eCusco\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_5b62b665ff87ae1e5b86708a751b572c.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Cusco</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 89.6%<br>• <b>2021:</b> 87.2%<br>• <b>2022:</b> 81.0%<br>• <b>2023:</b> 80.2%<br>• <b>2024:</b> 79.1%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5b62b665ff87ae1e5b86708a751b572c.setIcon(div_icon_b68f21c56a6ceabefabd8cbae110d874);
+            
+    
+            var marker_bf10e8a13b47ba667a62736b9ab3b692 = L.marker(
+                [-13.02513, -75.00327],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_a28691a09efc8c307d975958d0d424bf = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eHuancavelica\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_bf10e8a13b47ba667a62736b9ab3b692.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Huancavelica</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 92.9%<br>• <b>2021:</b> 94.8%<br>• <b>2022:</b> 89.3%<br>• <b>2023:</b> 86.4%<br>• <b>2024:</b> 85.3%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bf10e8a13b47ba667a62736b9ab3b692.setIcon(div_icon_a28691a09efc8c307d975958d0d424bf);
+            
+    
+            var marker_5e49d2224601712287289ebc0892bedc = L.marker(
+                [-9.41839, -76.03522],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_b5024971f387a529b2cdde31b4c5dd82 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eHu\u00e1nuco\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_5e49d2224601712287289ebc0892bedc.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Huánuco</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 88.2%<br>• <b>2021:</b> 89.9%<br>• <b>2022:</b> 85.7%<br>• <b>2023:</b> 83.2%<br>• <b>2024:</b> 82.9%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5e49d2224601712287289ebc0892bedc.setIcon(div_icon_b5024971f387a529b2cdde31b4c5dd82);
+            
+    
+            var marker_0915ba49e0b875be0a1b8f530ea732b9 = L.marker(
+                [-14.23242, -75.57775],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_91e3fc6da0454c3b679a2848c60269f7 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eIca\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_0915ba49e0b875be0a1b8f530ea732b9.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Ica</b> (Costa)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 64.3%<br>• <b>2021:</b> 69.1%<br>• <b>2022:</b> 61.1%<br>• <b>2023:</b> 59.2%<br>• <b>2024:</b> 59.0%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0915ba49e0b875be0a1b8f530ea732b9.setIcon(div_icon_91e3fc6da0454c3b679a2848c60269f7);
+            
+    
+            var marker_280b30b6233e21544a97c27b579d5750 = L.marker(
+                [-11.54007, -74.87694],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_1c62e38753b2db55ecd0cccaaabf5b32 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eJun\u00edn\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_280b30b6233e21544a97c27b579d5750.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Junín</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 83.6%<br>• <b>2021:</b> 85.3%<br>• <b>2022:</b> 80.2%<br>• <b>2023:</b> 78.7%<br>• <b>2024:</b> 79.0%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_280b30b6233e21544a97c27b579d5750.setIcon(div_icon_1c62e38753b2db55ecd0cccaaabf5b32);
+            
+    
+            var marker_02687f367559d6b150d709ebbfd600ad = L.marker(
+                [-7.92124, -78.37451],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_a454ea8601e93892e5e88746e666a19d = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eLa Libertad\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_02687f367559d6b150d709ebbfd600ad.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">La Libertad</b> (Costa)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 72.0%<br>• <b>2021:</b> 73.3%<br>• <b>2022:</b> 73.8%<br>• <b>2023:</b> 72.8%<br>• <b>2024:</b> 73.9%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_02687f367559d6b150d709ebbfd600ad.setIcon(div_icon_a454ea8601e93892e5e88746e666a19d);
+            
+    
+            var marker_f0712f402f7a01b3b7e4354f36d4fc7a = L.marker(
+                [-6.35226, -79.82499],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_f5ef47960611a59e89e1f4647d886243 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eLambayeque\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_f0712f402f7a01b3b7e4354f36d4fc7a.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Lambayeque</b> (Costa)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 72.5%<br>• <b>2021:</b> 76.2%<br>• <b>2022:</b> 74.9%<br>• <b>2023:</b> 72.8%<br>• <b>2024:</b> 74.8%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f0712f402f7a01b3b7e4354f36d4fc7a.setIcon(div_icon_f5ef47960611a59e89e1f4647d886243);
+            
+    
+            var marker_29336efc745f4d780d58d7af1631e170 = L.marker(
+                [-11.94267, -77.12657],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_ccf93a14cc0881880c430c48cbe7346e = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eLima Metrop.\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_29336efc745f4d780d58d7af1631e170.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Lima Metrop./Callao</b> (Costa)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 58.1%<br>• <b>2021:</b> 62.0%<br>• <b>2022:</b> 60.6%<br>• <b>2023:</b> 56.7%<br>• <b>2024:</b> 56.9%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_29336efc745f4d780d58d7af1631e170.setIcon(div_icon_ccf93a14cc0881880c430c48cbe7346e);
+            
+    
+            var marker_c796e269456cc187195b8e6e3459b893 = L.marker(
+                [-4.11731, -74.42221],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_3346db5fe50de68fdc47f5be47798d59 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eLoreto\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_c796e269456cc187195b8e6e3459b893.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Loreto</b> (Selva)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 83.5%<br>• <b>2021:</b> 85.9%<br>• <b>2022:</b> 83.9%<br>• <b>2023:</b> 80.3%<br>• <b>2024:</b> 80.5%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c796e269456cc187195b8e6e3459b893.setIcon(div_icon_3346db5fe50de68fdc47f5be47798d59);
+            
+    
+            var marker_b1428adb7de07c78c894989b0b5eaa13 = L.marker(
+                [-11.98118, -70.53239],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_1ab13116a0ee9c501b2fff4fa81255e8 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eMadre de Dios\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_b1428adb7de07c78c894989b0b5eaa13.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Madre de Dios</b> (Selva)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 81.7%<br>• <b>2021:</b> 80.4%<br>• <b>2022:</b> 77.0%<br>• <b>2023:</b> 76.4%<br>• <b>2024:</b> 76.3%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b1428adb7de07c78c894989b0b5eaa13.setIcon(div_icon_1ab13116a0ee9c501b2fff4fa81255e8);
+            
+    
+            var marker_050d13f98b9ec8427275f126fbe82ecf = L.marker(
+                [-16.85972, -70.83784],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_0dbd11257eb06a40fcf9bedb9a59c22b = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eMoquegua\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_050d13f98b9ec8427275f126fbe82ecf.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Moquegua</b> (Costa)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 68.4%<br>• <b>2021:</b> 70.1%<br>• <b>2022:</b> 65.5%<br>• <b>2023:</b> 63.0%<br>• <b>2024:</b> 59.4%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_050d13f98b9ec8427275f126fbe82ecf.setIcon(div_icon_0dbd11257eb06a40fcf9bedb9a59c22b);
+            
+    
+            var marker_de899e9fd1daf439144aeebfbf95a641 = L.marker(
+                [-10.39744, -75.2998],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_ecc91e395218486a5f4b957778b2106d = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003ePasco\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_de899e9fd1daf439144aeebfbf95a641.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Pasco</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 87.0%<br>• <b>2021:</b> 85.5%<br>• <b>2022:</b> 82.6%<br>• <b>2023:</b> 81.1%<br>• <b>2024:</b> 79.8%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_de899e9fd1daf439144aeebfbf95a641.setIcon(div_icon_ecc91e395218486a5f4b957778b2106d);
+            
+    
+            var marker_c401d73d88abd5e4ad4977ee9a604094 = L.marker(
+                [-5.1311, -80.33603],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_dc5ff99898b770a44f837c675ec5d241 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003ePiura\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_c401d73d88abd5e4ad4977ee9a604094.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Piura</b> (Costa)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 81.6%<br>• <b>2021:</b> 82.1%<br>• <b>2022:</b> 79.2%<br>• <b>2023:</b> 75.5%<br>• <b>2024:</b> 76.7%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c401d73d88abd5e4ad4977ee9a604094.setIcon(div_icon_dc5ff99898b770a44f837c675ec5d241);
+            
+    
+            var marker_d9e52f66ee665c38dddfc99fe142b2ad = L.marker(
+                [-14.92685, -69.95001],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_43b02cfc4c87cbcc10ca3a8302a6e9ac = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003ePuno\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_d9e52f66ee665c38dddfc99fe142b2ad.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Puno</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 89.6%<br>• <b>2021:</b> 90.4%<br>• <b>2022:</b> 89.4%<br>• <b>2023:</b> 89.3%<br>• <b>2024:</b> 87.7%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d9e52f66ee665c38dddfc99fe142b2ad.setIcon(div_icon_43b02cfc4c87cbcc10ca3a8302a6e9ac);
+            
+    
+            var marker_8c08ebcfaff720c4695e4fe67d08b495 = L.marker(
+                [-11.78433, -76.62944],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_1febe928ad013425a754d4d1c7649e4a = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eRegi\u00f3n Lima\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_8c08ebcfaff720c4695e4fe67d08b495.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Región Lima</b> (Costa)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 77.3%<br>• <b>2021:</b> 78.3%<br>• <b>2022:</b> 74.8%<br>• <b>2023:</b> 74.5%<br>• <b>2024:</b> 73.4%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8c08ebcfaff720c4695e4fe67d08b495.setIcon(div_icon_1febe928ad013425a754d4d1c7649e4a);
+            
+    
+            var marker_f08ebce60fdddf6f591c9a682020d2a1 = L.marker(
+                [-7.0351, -76.71632],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_f5998e6188835713a966bde22b66e0f2 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eSan Mart\u00edn\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_f08ebce60fdddf6f591c9a682020d2a1.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">San Martín</b> (Selva)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 89.7%<br>• <b>2021:</b> 89.3%<br>• <b>2022:</b> 86.1%<br>• <b>2023:</b> 82.2%<br>• <b>2024:</b> 83.7%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f08ebce60fdddf6f591c9a682020d2a1.setIcon(div_icon_f5998e6188835713a966bde22b66e0f2);
+            
+    
+            var marker_613f9b71e52ac5b4d47eb9fc3b145830 = L.marker(
+                [-17.64545, -70.27707],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_5b7f676dbcd6e7aabaec229ce081ab2d = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eTacna\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_613f9b71e52ac5b4d47eb9fc3b145830.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Tacna</b> (Costa)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 70.2%<br>• <b>2021:</b> 77.9%<br>• <b>2022:</b> 75.5%<br>• <b>2023:</b> 74.5%<br>• <b>2024:</b> 71.6%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_613f9b71e52ac5b4d47eb9fc3b145830.setIcon(div_icon_5b7f676dbcd6e7aabaec229ce081ab2d);
+            
+    
+            var marker_849d97d6b3ff7f24118f8712de0f294d = L.marker(
+                [-3.8554, -80.54396],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_2f191613673a27761132e3b4fd148b6a = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eTumbes\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_849d97d6b3ff7f24118f8712de0f294d.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Tumbes</b> (Costa)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 82.0%<br>• <b>2021:</b> 81.9%<br>• <b>2022:</b> 77.4%<br>• <b>2023:</b> 76.8%<br>• <b>2024:</b> 77.4%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_849d97d6b3ff7f24118f8712de0f294d.setIcon(div_icon_2f191613673a27761132e3b4fd148b6a);
+            
+    
+            var marker_b08b1d6910abe67cde5eed42a6e6e716 = L.marker(
+                [-9.6182, -73.43895],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_4773f5b8b617c72df75d325e6a9b7e23 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003eUcayali\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_b08b1d6910abe67cde5eed42a6e6e716.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Ucayali</b> (Selva)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 82.2%<br>• <b>2021:</b> 85.3%<br>• <b>2022:</b> 82.1%<br>• <b>2023:</b> 79.8%<br>• <b>2024:</b> 79.4%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b08b1d6910abe67cde5eed42a6e6e716.setIcon(div_icon_4773f5b8b617c72df75d325e6a9b7e23);
+            
+    
+            var marker_b854e096b20912510a9b7ef3c0a0cd89 = L.marker(
+                [-9.40511, -77.67068],
+                {
+}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            var div_icon_f1ce8c8c37d902cbe2be5d652e190f39 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 9pt; color: white; font-weight: bold; text-align: center; font-family: Arial, sans-serif; text-shadow: 2px 2px 3px black, -2px -2px 3px black, 2px -2px 3px black, -2px 2px 3px black; cursor: pointer;\"\u003e\u00c1ncash\u003c/div\u003e",
+  "iconSize": [150, 36],
+  "iconAnchor": [75, 18],
+  "className": "empty",
+});
+        
+    
+            marker_b854e096b20912510a9b7ef3c0a0cd89.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Áncash</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 81.9%<br>• <b>2021:</b> 83.3%<br>• <b>2022:</b> 80.9%<br>• <b>2023:</b> 78.2%<br>• <b>2024:</b> 78.3%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b854e096b20912510a9b7ef3c0a0cd89.setIcon(div_icon_f1ce8c8c37d902cbe2be5d652e190f39);
+            
+    
+            var circle_marker_159177374f34c3db76cfd7ec19542469 = L.circleMarker(
+                [-9.40511, -77.67068],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22, "stroke": false, "weight": 3}
+            ).addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+            circle_marker_159177374f34c3db76cfd7ec19542469.bindTooltip(
+                `<div>
+                     
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; padding: 6px 10px;
+                background-color: #1a1a1a; color: white; border-radius: 5px; min-width: 150px;">
+        <b style="color: #41b6c4; font-size: 11pt;">Áncash</b> (Sierra)<br>
+        <hr style="border: 0; border-top: 1px solid #444; margin: 5px 0;">
+    • <b>2020:</b> 81.9%<br>• <b>2021:</b> 83.3%<br>• <b>2022:</b> 80.9%<br>• <b>2023:</b> 78.2%<br>• <b>2024:</b> 78.3%<br></div>
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var tile_layer_8bd62acdc876c23689594194526d99c9 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_91f8ee56b8f126a865da9c3569f99c21 = new L.Control.MiniMap(
+                tile_layer_8bd62acdc876c23689594194526d99c9,
+                {
+  "position": "bottomleft",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_913c72df416c71e445699d895e2666b2.addControl(mini_map_91f8ee56b8f126a865da9c3569f99c21);
+        
+    
+            tile_layer_94ad5c9ad49d7a9e1e08cfb98584086a.addTo(map_913c72df416c71e445699d895e2666b2);
+        
+    
+                marker_de27bda1935e8cbaefcae5841c8ae879.setIcon(div_icon_4bcb11abbfbd4f821d9dede817f5925a);
+            
+    
+                marker_0b15c2cbad594bfb12ca2ba3fbe96a2f.setIcon(div_icon_648addbe8503e8e89e8cd0d91c1e8055);
+            
+    
+                marker_a7340060dd00a6a0df5d5b3f9fc230bb.setIcon(div_icon_9110ce33f847684fd7b6887d26813d93);
+            
+    
+                marker_8beb814159aac5d4d39729cc547f21b7.setIcon(div_icon_8853c773b9fddea644402824c28e4c6a);
+            
+    
+                marker_f88fb9aa0e001eae1714122143431f05.setIcon(div_icon_4fa4b17e2281de5bec50f9a76064fa2b);
+            
+    
+                marker_5b62b665ff87ae1e5b86708a751b572c.setIcon(div_icon_b68f21c56a6ceabefabd8cbae110d874);
+            
+    
+                marker_bf10e8a13b47ba667a62736b9ab3b692.setIcon(div_icon_a28691a09efc8c307d975958d0d424bf);
+            
+    
+                marker_5e49d2224601712287289ebc0892bedc.setIcon(div_icon_b5024971f387a529b2cdde31b4c5dd82);
+            
+    
+                marker_0915ba49e0b875be0a1b8f530ea732b9.setIcon(div_icon_91e3fc6da0454c3b679a2848c60269f7);
+            
+    
+                marker_280b30b6233e21544a97c27b579d5750.setIcon(div_icon_1c62e38753b2db55ecd0cccaaabf5b32);
+            
+    
+                marker_02687f367559d6b150d709ebbfd600ad.setIcon(div_icon_a454ea8601e93892e5e88746e666a19d);
+            
+    
+                marker_f0712f402f7a01b3b7e4354f36d4fc7a.setIcon(div_icon_f5ef47960611a59e89e1f4647d886243);
+            
+    
+                marker_29336efc745f4d780d58d7af1631e170.setIcon(div_icon_ccf93a14cc0881880c430c48cbe7346e);
+            
+    
+                marker_c796e269456cc187195b8e6e3459b893.setIcon(div_icon_3346db5fe50de68fdc47f5be47798d59);
+            
+    
+                marker_b1428adb7de07c78c894989b0b5eaa13.setIcon(div_icon_1ab13116a0ee9c501b2fff4fa81255e8);
+            
+    
+                marker_050d13f98b9ec8427275f126fbe82ecf.setIcon(div_icon_0dbd11257eb06a40fcf9bedb9a59c22b);
+            
+    
+                marker_de899e9fd1daf439144aeebfbf95a641.setIcon(div_icon_ecc91e395218486a5f4b957778b2106d);
+            
+    
+                marker_c401d73d88abd5e4ad4977ee9a604094.setIcon(div_icon_dc5ff99898b770a44f837c675ec5d241);
+            
+    
+                marker_d9e52f66ee665c38dddfc99fe142b2ad.setIcon(div_icon_43b02cfc4c87cbcc10ca3a8302a6e9ac);
+            
+    
+                marker_8c08ebcfaff720c4695e4fe67d08b495.setIcon(div_icon_1febe928ad013425a754d4d1c7649e4a);
+            
+    
+                marker_f08ebce60fdddf6f591c9a682020d2a1.setIcon(div_icon_f5998e6188835713a966bde22b66e0f2);
+            
+    
+                marker_613f9b71e52ac5b4d47eb9fc3b145830.setIcon(div_icon_5b7f676dbcd6e7aabaec229ce081ab2d);
+            
+    
+                marker_849d97d6b3ff7f24118f8712de0f294d.setIcon(div_icon_2f191613673a27761132e3b4fd148b6a);
+            
+    
+                marker_b08b1d6910abe67cde5eed42a6e6e716.setIcon(div_icon_4773f5b8b617c72df75d325e6a9b7e23);
+            
+    
+                marker_b854e096b20912510a9b7ef3c0a0cd89.setIcon(div_icon_f1ce8c8c37d902cbe2be5d652e190f39);
+            
+</script>
+</html>

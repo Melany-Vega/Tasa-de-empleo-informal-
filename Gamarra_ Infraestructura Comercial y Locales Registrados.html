@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_8aa0ae0f5b0fabdea5d1ca4148743ec1 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+</head>
+<body>
+    
+    
+<div style="position: fixed; top: 15px; left: 60px; z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.95); padding: 10px 15px;
+    border-radius: 8px; border: 2px solid #ccc; font-family: Arial, sans-serif;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.15);">
+    <h3 style="margin: 0; font-size: 14px; font-weight: bold; color: #333;">
+        Gamarra: Infraestructura Comercial y Locales Registrados
+    </h3>
+    <span style="font-size: 11px; color: #666;">Datos de Establecimientos y Galerías Fijas (Línea Base)</span>
+</div>
+    
+<div style="position: fixed; bottom: 35px; right: 15px; z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.95); padding: 10px 12px;
+    border-radius: 8px; border: 1px solid #ccc; font-family: Arial, sans-serif;
+    font-size: 11px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); line-height: 1.6; color: #333;">
+    <b style="font-size: 12px;">Leyenda de Densidad</b><br>
+    <small>Concentración de locales (Heatmap)</small>
+    <div style="margin-top: 5px;">
+        <span style="display:inline-block; width:15px; height:10px; background-color:blue; opacity:0.6; border-radius:2px; margin-right:5px;"></span>Baja Densidad<br>
+        <span style="display:inline-block; width:15px; height:10px; background-color:cyan; opacity:0.6; border-radius:2px; margin-right:5px;"></span>Densidad Media-Baja<br>
+        <span style="display:inline-block; width:15px; height:10px; background-color:yellow; opacity:0.6; border-radius:2px; margin-right:5px;"></span>Densidad Media-Alta<br>
+        <span style="display:inline-block; width:15px; height:10px; background-color:lime; opacity:0.6; border-radius:2px; margin-right:5px;"></span>Alta Densidad<br>
+    </div>
+    <hr style="margin: 6px 0; border: 0; border-top: 1px solid #ddd;">
+    <span style="display:inline-block; width:9px; height:9px; background-color:#1d91c0; border-radius:50%; margin-right:5px;"></span>Marcador de Local Individual
+</div>
+    
+            <div class="folium-map" id="map_8aa0ae0f5b0fabdea5d1ca4148743ec1" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_8aa0ae0f5b0fabdea5d1ca4148743ec1 = L.map(
+                "map_8aa0ae0f5b0fabdea5d1ca4148743ec1",
+                {
+                    center: [-12.0621, -77.0158],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 17,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_41f08a8decabccbc1aef5c0916b55599 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_41f08a8decabccbc1aef5c0916b55599.addTo(map_8aa0ae0f5b0fabdea5d1ca4148743ec1);
+        
+    
+            var heat_map_e9aeeea4272350c896876648c587919c = L.heatLayer(
+                [[-12.059929434853865, -77.01867548830384, 1.0], [-12.061030814120588, -77.01430717670476, 1.0], [-12.062111943901579, -77.01745122012682, 1.0], [-12.064515497081922, -77.0142368157268, 1.0], [-12.064747113307499, -77.01826996111495, 1.0], [-12.060617121453056, -77.01307963992284, 1.0], [-12.066068413869376, -77.01572684641968, 1.0], [-12.059599032306782, -77.01512484359903, 1.0], [-12.060325957460545, -77.01704874359098, 1.0], [-12.058757807019896, -77.01451254529961, 1.0], [-12.06175964505591, -77.0179469797144, 1.0], [-12.063113273919587, -77.0147551983096, 1.0], [-12.062565334604615, -77.01619591604, 1.0], [-12.061157864172245, -77.01572117054467, 1.0], [-12.060896822544548, -77.01519376627957, 1.0], [-12.059658214425337, -77.01567011708563, 1.0], [-12.05883080895353, -77.01688458346607, 1.0], [-12.065376325205833, -77.01699579966018, 1.0], [-12.065188125105092, -77.01382791204215, 1.0], [-12.065724829444886, -77.01504227711013, 1.0], [-12.061719310752645, -77.01388427802598, 1.0], [-12.064508419682568, -77.01365889818526, 1.0], [-12.063286778884542, -77.01427211385082, 1.0], [-12.063732306344962, -77.01349638112264, 1.0], [-12.06349590689734, -77.01780990461369, 1.0], [-12.062959766048426, -77.01823923775265, 1.0], [-12.059531154737304, -77.01789308788214, 1.0], [-12.06302708441046, -77.01313443572657, 1.0], [-12.058198996200785, -77.01606217271743, 1.0], [-12.059491017249258, -77.01729175519476, 1.0], [-12.061321026814152, -77.01338300943802, 1.0], [-12.061823536409584, -77.01525879182209, 1.0], [-12.065785745862197, -77.01665690944819, 1.0], [-12.065463095278751, -77.01696724048995, 1.0], [-12.063454245504142, -77.01415701822273, 1.0], [-12.06578032633048, -77.01622304692941, 1.0], [-12.063580585025258, -77.0149810531416, 1.0], [-12.063329222799359, -77.01854141586277, 1.0], [-12.059060678603856, -77.01422055647714, 1.0], [-12.0590752268582, -77.01629494513696, 1.0], [-12.06125537948485, -77.01571920023555, 1.0], [-12.061317306816296, -77.01722670603321, 1.0], [-12.063693029528473, -77.01864760130769, 1.0], [-12.06367549951479, -77.01734754474758, 1.0], [-12.061639374490698, -77.01540695788067, 1.0], [-12.062298942020679, -77.01704321214226, 1.0], [-12.06558599151444, -77.01292708512545, 1.0], [-12.063382337250896, -77.01582970821471, 1.0], [-12.058283354192618, -77.0161553570506, 1.0], [-12.063553817556167, -77.01568121808475, 1.0], [-12.061474908560939, -77.013676397497, 1.0], [-12.065555221811696, -77.01601281515332, 1.0], [-12.059844407051045, -77.0144883831377, 1.0], [-12.061411824159574, -77.01857743352059, 1.0], [-12.063294748869733, -77.01542085589304, 1.0], [-12.063702161020602, -77.01572599508036, 1.0], [-12.060712264597722, -77.01784483759972, 1.0], [-12.065696178638767, -77.01677310467761, 1.0], [-12.065235489817763, -77.01772658314857, 1.0], [-12.059013383230658, -77.01660781017272, 1.0], [-12.064349845206563, -77.01428502297868, 1.0], [-12.06524496332485, -77.01433238055535, 1.0], [-12.062341717652474, -77.01521046597233, 1.0], [-12.064919038461717, -77.01769579106744, 1.0], [-12.060939422988254, -77.01850823196241, 1.0], [-12.064111099937577, -77.01554554890264, 1.0], [-12.06428581325384, -77.01651153079057, 1.0], [-12.058722137704772, -77.0132478587628, 1.0], [-12.0615660006034, -77.01559917469007, 1.0], [-12.065981119802933, -77.01293260441959, 1.0], [-12.061515768767734, -77.01404945802234, 1.0], [-12.061607541117787, -77.01353598855061, 1.0], [-12.061426433371754, -77.01454690104178, 1.0], [-12.064911732389147, -77.01622929556619, 1.0], [-12.060548879469259, -77.01817228153286, 1.0], [-12.062583158097802, -77.01780278711377, 1.0], [-12.062044170965887, -77.01388578481519, 1.0], [-12.065379146122204, -77.01399958749583, 1.0], [-12.061578989168337, -77.01526391372991, 1.0], [-12.064515194742269, -77.01618329046796, 1.0]],
+                {
+  "minOpacity": 0.3,
+  "maxZoom": 18,
+  "radius": 18,
+  "blur": 15,
+  "gradient": {
+  0.4: "blue",
+  0.6: "cyan",
+  0.8: "yellow",
+  1.0: "lime",
+},
+}
+            );
+        
+    
+            heat_map_e9aeeea4272350c896876648c587919c.addTo(map_8aa0ae0f5b0fabdea5d1ca4148743ec1);
+        
+    
+            var marker_cluster_67cae42284ce03c5dc71859600ef7b3c = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_4610f7a25ea8071c17c53701042e512b = L.circleMarker(
+                [-12.059929434853865, -77.01867548830384],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_610177ac037cb2820b60556560083107 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3a314fdae16ba8050c3fd007047ee7bd = $(`<div id="html_3a314fdae16ba8050c3fd007047ee7bd" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #1</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_610177ac037cb2820b60556560083107.setContent(html_3a314fdae16ba8050c3fd007047ee7bd);
+            
+        
+
+        circle_marker_4610f7a25ea8071c17c53701042e512b.bindPopup(popup_610177ac037cb2820b60556560083107)
+        ;
+
+        
+    
+    
+            var circle_marker_22b3c907f1050597b755d9ebb788435e = L.circleMarker(
+                [-12.061030814120588, -77.01430717670476],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_c87bc0f4eabbc61577f5ada5c6a51446 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_52e365ef68d8721435243fef60705809 = $(`<div id="html_52e365ef68d8721435243fef60705809" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #2</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_c87bc0f4eabbc61577f5ada5c6a51446.setContent(html_52e365ef68d8721435243fef60705809);
+            
+        
+
+        circle_marker_22b3c907f1050597b755d9ebb788435e.bindPopup(popup_c87bc0f4eabbc61577f5ada5c6a51446)
+        ;
+
+        
+    
+    
+            var circle_marker_33e63799cdfc2118ca2a8f7ea9fea6b2 = L.circleMarker(
+                [-12.062111943901579, -77.01745122012682],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_c04f74dc2fa91a042e64e873c354ee89 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d5489ec6c897629909e3164bcc096300 = $(`<div id="html_d5489ec6c897629909e3164bcc096300" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #3</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_c04f74dc2fa91a042e64e873c354ee89.setContent(html_d5489ec6c897629909e3164bcc096300);
+            
+        
+
+        circle_marker_33e63799cdfc2118ca2a8f7ea9fea6b2.bindPopup(popup_c04f74dc2fa91a042e64e873c354ee89)
+        ;
+
+        
+    
+    
+            var circle_marker_35a8161a9f2a4a8cd01092271c823eb3 = L.circleMarker(
+                [-12.064515497081922, -77.0142368157268],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_915a9d65d6175029b7b62d2014b29498 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ebd6a4af1808d4a18d43e34a86086485 = $(`<div id="html_ebd6a4af1808d4a18d43e34a86086485" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #4</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_915a9d65d6175029b7b62d2014b29498.setContent(html_ebd6a4af1808d4a18d43e34a86086485);
+            
+        
+
+        circle_marker_35a8161a9f2a4a8cd01092271c823eb3.bindPopup(popup_915a9d65d6175029b7b62d2014b29498)
+        ;
+
+        
+    
+    
+            var circle_marker_ac6c453deb7e34c14f1e693087474757 = L.circleMarker(
+                [-12.064747113307499, -77.01826996111495],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_89f838457c6844d6b621033e8ca3296e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7226be56757641e80bcb38d71c635581 = $(`<div id="html_7226be56757641e80bcb38d71c635581" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #5</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_89f838457c6844d6b621033e8ca3296e.setContent(html_7226be56757641e80bcb38d71c635581);
+            
+        
+
+        circle_marker_ac6c453deb7e34c14f1e693087474757.bindPopup(popup_89f838457c6844d6b621033e8ca3296e)
+        ;
+
+        
+    
+    
+            var circle_marker_abb1a10927bb0bc66535cccc5854b5fa = L.circleMarker(
+                [-12.060617121453056, -77.01307963992284],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_3ab9f3840a2715b7e44f626dffca78d4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6a179e59e3002e8591bb05e978b142b1 = $(`<div id="html_6a179e59e3002e8591bb05e978b142b1" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #6</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_3ab9f3840a2715b7e44f626dffca78d4.setContent(html_6a179e59e3002e8591bb05e978b142b1);
+            
+        
+
+        circle_marker_abb1a10927bb0bc66535cccc5854b5fa.bindPopup(popup_3ab9f3840a2715b7e44f626dffca78d4)
+        ;
+
+        
+    
+    
+            var circle_marker_fafb9d9db8a45c0d822953b8c3a5e322 = L.circleMarker(
+                [-12.066068413869376, -77.01572684641968],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_5c640afe5872e647377031a0937670cc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f313404f1525b9482f50af1f9a3774db = $(`<div id="html_f313404f1525b9482f50af1f9a3774db" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #7</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_5c640afe5872e647377031a0937670cc.setContent(html_f313404f1525b9482f50af1f9a3774db);
+            
+        
+
+        circle_marker_fafb9d9db8a45c0d822953b8c3a5e322.bindPopup(popup_5c640afe5872e647377031a0937670cc)
+        ;
+
+        
+    
+    
+            var circle_marker_ee2598310ce1d92a9bd59f72d918b61d = L.circleMarker(
+                [-12.059599032306782, -77.01512484359903],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_011cbc6a5264a8fe2b60dbd56e8737fc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b8501f33b23880ef5cdbc1619041dd3e = $(`<div id="html_b8501f33b23880ef5cdbc1619041dd3e" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #8</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_011cbc6a5264a8fe2b60dbd56e8737fc.setContent(html_b8501f33b23880ef5cdbc1619041dd3e);
+            
+        
+
+        circle_marker_ee2598310ce1d92a9bd59f72d918b61d.bindPopup(popup_011cbc6a5264a8fe2b60dbd56e8737fc)
+        ;
+
+        
+    
+    
+            var circle_marker_bead9082dcbb00cb3e852d1afe692254 = L.circleMarker(
+                [-12.060325957460545, -77.01704874359098],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_ff9712b0d862cd52588c6d5de9da4e80 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_875f670f9d10c68b0ada0fc6df3c4720 = $(`<div id="html_875f670f9d10c68b0ada0fc6df3c4720" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #9</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_ff9712b0d862cd52588c6d5de9da4e80.setContent(html_875f670f9d10c68b0ada0fc6df3c4720);
+            
+        
+
+        circle_marker_bead9082dcbb00cb3e852d1afe692254.bindPopup(popup_ff9712b0d862cd52588c6d5de9da4e80)
+        ;
+
+        
+    
+    
+            var circle_marker_75569f92cf64c4e0d9f11645957a9646 = L.circleMarker(
+                [-12.058757807019896, -77.01451254529961],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_67f413d6ce7a07a8bc828c7f36a6bc80 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_934150b56db44208104df7d71d0b7019 = $(`<div id="html_934150b56db44208104df7d71d0b7019" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #10</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_67f413d6ce7a07a8bc828c7f36a6bc80.setContent(html_934150b56db44208104df7d71d0b7019);
+            
+        
+
+        circle_marker_75569f92cf64c4e0d9f11645957a9646.bindPopup(popup_67f413d6ce7a07a8bc828c7f36a6bc80)
+        ;
+
+        
+    
+    
+            var circle_marker_8b989497ee975074dce2824181599a8e = L.circleMarker(
+                [-12.06175964505591, -77.0179469797144],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_c97829f5e4159eded3976e939003826b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_280b2655384ee1036c3bfabd47b2c14f = $(`<div id="html_280b2655384ee1036c3bfabd47b2c14f" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #11</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_c97829f5e4159eded3976e939003826b.setContent(html_280b2655384ee1036c3bfabd47b2c14f);
+            
+        
+
+        circle_marker_8b989497ee975074dce2824181599a8e.bindPopup(popup_c97829f5e4159eded3976e939003826b)
+        ;
+
+        
+    
+    
+            var circle_marker_544658bb6b85d41616e14ed031b030ac = L.circleMarker(
+                [-12.063113273919587, -77.0147551983096],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_6efeab58dd709a51987d81b9ce78a2ec = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1775b90d5da8ec6f4e3806b079b733b9 = $(`<div id="html_1775b90d5da8ec6f4e3806b079b733b9" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #12</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_6efeab58dd709a51987d81b9ce78a2ec.setContent(html_1775b90d5da8ec6f4e3806b079b733b9);
+            
+        
+
+        circle_marker_544658bb6b85d41616e14ed031b030ac.bindPopup(popup_6efeab58dd709a51987d81b9ce78a2ec)
+        ;
+
+        
+    
+    
+            var circle_marker_ede66b71a1c2bf2971e78a1b789ce131 = L.circleMarker(
+                [-12.062565334604615, -77.01619591604],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_dc456564d578f9ab23f767086e03a702 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_428a512fca73204701f9530b334d9fc9 = $(`<div id="html_428a512fca73204701f9530b334d9fc9" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #13</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_dc456564d578f9ab23f767086e03a702.setContent(html_428a512fca73204701f9530b334d9fc9);
+            
+        
+
+        circle_marker_ede66b71a1c2bf2971e78a1b789ce131.bindPopup(popup_dc456564d578f9ab23f767086e03a702)
+        ;
+
+        
+    
+    
+            var circle_marker_45dc49587c863e1f3bf6bd5798be146c = L.circleMarker(
+                [-12.061157864172245, -77.01572117054467],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_2f7d9d73f1ab5628a00f16887668e5c3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bc8bb3b5448e77281bda97aba305a448 = $(`<div id="html_bc8bb3b5448e77281bda97aba305a448" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #14</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_2f7d9d73f1ab5628a00f16887668e5c3.setContent(html_bc8bb3b5448e77281bda97aba305a448);
+            
+        
+
+        circle_marker_45dc49587c863e1f3bf6bd5798be146c.bindPopup(popup_2f7d9d73f1ab5628a00f16887668e5c3)
+        ;
+
+        
+    
+    
+            var circle_marker_8e81c7d7d9062ba272819f6672ef1cb7 = L.circleMarker(
+                [-12.060896822544548, -77.01519376627957],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_6951b3ef4960ca6d308110b70324be00 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a63b86db87194652b071f53766119cb0 = $(`<div id="html_a63b86db87194652b071f53766119cb0" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #15</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_6951b3ef4960ca6d308110b70324be00.setContent(html_a63b86db87194652b071f53766119cb0);
+            
+        
+
+        circle_marker_8e81c7d7d9062ba272819f6672ef1cb7.bindPopup(popup_6951b3ef4960ca6d308110b70324be00)
+        ;
+
+        
+    
+    
+            var circle_marker_e8411626b915bdbaaa7eb47b524f8b3d = L.circleMarker(
+                [-12.059658214425337, -77.01567011708563],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_9bef57317c3ac6faadf7a14dfe7100f3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ee906f2ad2f33f05eb8c1db97a4b77b3 = $(`<div id="html_ee906f2ad2f33f05eb8c1db97a4b77b3" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #16</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_9bef57317c3ac6faadf7a14dfe7100f3.setContent(html_ee906f2ad2f33f05eb8c1db97a4b77b3);
+            
+        
+
+        circle_marker_e8411626b915bdbaaa7eb47b524f8b3d.bindPopup(popup_9bef57317c3ac6faadf7a14dfe7100f3)
+        ;
+
+        
+    
+    
+            var circle_marker_3b8fd49d185e51882d3b39877f6b97fc = L.circleMarker(
+                [-12.05883080895353, -77.01688458346607],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_9150499a9e7cf2405fc9bad25d623b66 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_10c4e756adfeef9eb6cde8965bc247a9 = $(`<div id="html_10c4e756adfeef9eb6cde8965bc247a9" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #17</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_9150499a9e7cf2405fc9bad25d623b66.setContent(html_10c4e756adfeef9eb6cde8965bc247a9);
+            
+        
+
+        circle_marker_3b8fd49d185e51882d3b39877f6b97fc.bindPopup(popup_9150499a9e7cf2405fc9bad25d623b66)
+        ;
+
+        
+    
+    
+            var circle_marker_0e5bcfee63edca0620159cd64e9f2a9c = L.circleMarker(
+                [-12.065376325205833, -77.01699579966018],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_f888bde511c9387f7744964dee45ba9a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f71dbf91b8f04fd8eaa279ce4ab534d2 = $(`<div id="html_f71dbf91b8f04fd8eaa279ce4ab534d2" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #18</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_f888bde511c9387f7744964dee45ba9a.setContent(html_f71dbf91b8f04fd8eaa279ce4ab534d2);
+            
+        
+
+        circle_marker_0e5bcfee63edca0620159cd64e9f2a9c.bindPopup(popup_f888bde511c9387f7744964dee45ba9a)
+        ;
+
+        
+    
+    
+            var circle_marker_fcdd2ba2478f77c4c9c0ecf58ba46556 = L.circleMarker(
+                [-12.065188125105092, -77.01382791204215],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_748812e9f89cc07ed25db70c84d867a5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8b8bfa9897f26f57f502793bc584814b = $(`<div id="html_8b8bfa9897f26f57f502793bc584814b" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #19</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_748812e9f89cc07ed25db70c84d867a5.setContent(html_8b8bfa9897f26f57f502793bc584814b);
+            
+        
+
+        circle_marker_fcdd2ba2478f77c4c9c0ecf58ba46556.bindPopup(popup_748812e9f89cc07ed25db70c84d867a5)
+        ;
+
+        
+    
+    
+            var circle_marker_c8b67db775956315a407a45591c42af1 = L.circleMarker(
+                [-12.065724829444886, -77.01504227711013],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_dd5f5e91e48eaeb1229ff1a70fb113c0 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_65c617c16a8d55c1a4924a6d095aae92 = $(`<div id="html_65c617c16a8d55c1a4924a6d095aae92" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #20</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_dd5f5e91e48eaeb1229ff1a70fb113c0.setContent(html_65c617c16a8d55c1a4924a6d095aae92);
+            
+        
+
+        circle_marker_c8b67db775956315a407a45591c42af1.bindPopup(popup_dd5f5e91e48eaeb1229ff1a70fb113c0)
+        ;
+
+        
+    
+    
+            var circle_marker_f9956fe5105deb7f55e9b15bf76192ae = L.circleMarker(
+                [-12.061719310752645, -77.01388427802598],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_f71bc8db2dfbb84f7bbadbf8a6a78812 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dccffcf19d350d7265c5866abbd13539 = $(`<div id="html_dccffcf19d350d7265c5866abbd13539" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #21</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_f71bc8db2dfbb84f7bbadbf8a6a78812.setContent(html_dccffcf19d350d7265c5866abbd13539);
+            
+        
+
+        circle_marker_f9956fe5105deb7f55e9b15bf76192ae.bindPopup(popup_f71bc8db2dfbb84f7bbadbf8a6a78812)
+        ;
+
+        
+    
+    
+            var circle_marker_859d2dfff5d5996ed78b689b0068bcab = L.circleMarker(
+                [-12.064508419682568, -77.01365889818526],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_a8ca10b5bf6baf0c3589537a707090ce = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7dc2c24132db4c4aa36f7372274f53f8 = $(`<div id="html_7dc2c24132db4c4aa36f7372274f53f8" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #22</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_a8ca10b5bf6baf0c3589537a707090ce.setContent(html_7dc2c24132db4c4aa36f7372274f53f8);
+            
+        
+
+        circle_marker_859d2dfff5d5996ed78b689b0068bcab.bindPopup(popup_a8ca10b5bf6baf0c3589537a707090ce)
+        ;
+
+        
+    
+    
+            var circle_marker_6b1eac92b42105bb8e67e84f059110a2 = L.circleMarker(
+                [-12.063286778884542, -77.01427211385082],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_36cadb569cb9475faada94ec5642706a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bac35ff4a8c9e4fdddb00fd7daf814a6 = $(`<div id="html_bac35ff4a8c9e4fdddb00fd7daf814a6" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #23</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_36cadb569cb9475faada94ec5642706a.setContent(html_bac35ff4a8c9e4fdddb00fd7daf814a6);
+            
+        
+
+        circle_marker_6b1eac92b42105bb8e67e84f059110a2.bindPopup(popup_36cadb569cb9475faada94ec5642706a)
+        ;
+
+        
+    
+    
+            var circle_marker_e4555f45b448e7c9acad6593b2838f60 = L.circleMarker(
+                [-12.063732306344962, -77.01349638112264],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_3d5f123098fba55bc974ac1d36403d4f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_41f15c42f43751f34207fe6776654b42 = $(`<div id="html_41f15c42f43751f34207fe6776654b42" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #24</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_3d5f123098fba55bc974ac1d36403d4f.setContent(html_41f15c42f43751f34207fe6776654b42);
+            
+        
+
+        circle_marker_e4555f45b448e7c9acad6593b2838f60.bindPopup(popup_3d5f123098fba55bc974ac1d36403d4f)
+        ;
+
+        
+    
+    
+            var circle_marker_87ead8c4fa66df2d768ba61c8f68ce1a = L.circleMarker(
+                [-12.06349590689734, -77.01780990461369],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_f4caebe888cb8c8fa03c34e02edd506c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a2bc0c81ba43018e6acb8639c90cb98c = $(`<div id="html_a2bc0c81ba43018e6acb8639c90cb98c" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #25</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_f4caebe888cb8c8fa03c34e02edd506c.setContent(html_a2bc0c81ba43018e6acb8639c90cb98c);
+            
+        
+
+        circle_marker_87ead8c4fa66df2d768ba61c8f68ce1a.bindPopup(popup_f4caebe888cb8c8fa03c34e02edd506c)
+        ;
+
+        
+    
+    
+            var circle_marker_78b64d417989e00d7a744bd1964c46a2 = L.circleMarker(
+                [-12.062959766048426, -77.01823923775265],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_d3a63c7880f5332face73a466feae2db = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c9576d6e4a708b2838c8a28c9ffdbae4 = $(`<div id="html_c9576d6e4a708b2838c8a28c9ffdbae4" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #26</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_d3a63c7880f5332face73a466feae2db.setContent(html_c9576d6e4a708b2838c8a28c9ffdbae4);
+            
+        
+
+        circle_marker_78b64d417989e00d7a744bd1964c46a2.bindPopup(popup_d3a63c7880f5332face73a466feae2db)
+        ;
+
+        
+    
+    
+            var circle_marker_be3fca15fdb6b72f25f34a50fe278962 = L.circleMarker(
+                [-12.059531154737304, -77.01789308788214],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_04d6eb1ef04c663deb819ce1eb2c0073 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c133423b9d23283f378ea93da1c123fe = $(`<div id="html_c133423b9d23283f378ea93da1c123fe" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #27</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_04d6eb1ef04c663deb819ce1eb2c0073.setContent(html_c133423b9d23283f378ea93da1c123fe);
+            
+        
+
+        circle_marker_be3fca15fdb6b72f25f34a50fe278962.bindPopup(popup_04d6eb1ef04c663deb819ce1eb2c0073)
+        ;
+
+        
+    
+    
+            var circle_marker_b92625f7778864a320d4a0c5ea65d8eb = L.circleMarker(
+                [-12.06302708441046, -77.01313443572657],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_08d14a1a55b82fb591a097c0aa9de821 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f5df25fd1f1b993ae7f6e77cfd07679c = $(`<div id="html_f5df25fd1f1b993ae7f6e77cfd07679c" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #28</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_08d14a1a55b82fb591a097c0aa9de821.setContent(html_f5df25fd1f1b993ae7f6e77cfd07679c);
+            
+        
+
+        circle_marker_b92625f7778864a320d4a0c5ea65d8eb.bindPopup(popup_08d14a1a55b82fb591a097c0aa9de821)
+        ;
+
+        
+    
+    
+            var circle_marker_8e66baee7c44adb6b8326cd0294bca56 = L.circleMarker(
+                [-12.058198996200785, -77.01606217271743],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_d10f51eb93298dd5b938f429bd0a0c86 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5988ca318adff4f0699084d31048e140 = $(`<div id="html_5988ca318adff4f0699084d31048e140" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #29</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_d10f51eb93298dd5b938f429bd0a0c86.setContent(html_5988ca318adff4f0699084d31048e140);
+            
+        
+
+        circle_marker_8e66baee7c44adb6b8326cd0294bca56.bindPopup(popup_d10f51eb93298dd5b938f429bd0a0c86)
+        ;
+
+        
+    
+    
+            var circle_marker_cd08fbea5c42188f943f9b7209d2561f = L.circleMarker(
+                [-12.059491017249258, -77.01729175519476],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_3f52391db4a12186c5964fb565aab40d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fba85a7b6d0ea7849aa9936d47c0574b = $(`<div id="html_fba85a7b6d0ea7849aa9936d47c0574b" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #30</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_3f52391db4a12186c5964fb565aab40d.setContent(html_fba85a7b6d0ea7849aa9936d47c0574b);
+            
+        
+
+        circle_marker_cd08fbea5c42188f943f9b7209d2561f.bindPopup(popup_3f52391db4a12186c5964fb565aab40d)
+        ;
+
+        
+    
+    
+            var circle_marker_aaf113aa0b7931b52cad27d8b3d4fd47 = L.circleMarker(
+                [-12.061321026814152, -77.01338300943802],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_47867f17aa4e35b00200b8a3cae42953 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_46e41d7ddca12b8132550c8ac8bc7484 = $(`<div id="html_46e41d7ddca12b8132550c8ac8bc7484" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #31</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_47867f17aa4e35b00200b8a3cae42953.setContent(html_46e41d7ddca12b8132550c8ac8bc7484);
+            
+        
+
+        circle_marker_aaf113aa0b7931b52cad27d8b3d4fd47.bindPopup(popup_47867f17aa4e35b00200b8a3cae42953)
+        ;
+
+        
+    
+    
+            var circle_marker_8d15a8444a936eae5a2fa2faced7cd30 = L.circleMarker(
+                [-12.061823536409584, -77.01525879182209],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_1c1fd22e444e1b0ce1d5fdacc0f70ef2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_21397b817db594fb23f0f469b7b8e359 = $(`<div id="html_21397b817db594fb23f0f469b7b8e359" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #32</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_1c1fd22e444e1b0ce1d5fdacc0f70ef2.setContent(html_21397b817db594fb23f0f469b7b8e359);
+            
+        
+
+        circle_marker_8d15a8444a936eae5a2fa2faced7cd30.bindPopup(popup_1c1fd22e444e1b0ce1d5fdacc0f70ef2)
+        ;
+
+        
+    
+    
+            var circle_marker_2e395f67e039a8b52dc57e3b94ff7be6 = L.circleMarker(
+                [-12.065785745862197, -77.01665690944819],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_31465dc9a2d333e2ac0ecc7a1c84f12c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_786bc5c17578d934508084824248683f = $(`<div id="html_786bc5c17578d934508084824248683f" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #33</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_31465dc9a2d333e2ac0ecc7a1c84f12c.setContent(html_786bc5c17578d934508084824248683f);
+            
+        
+
+        circle_marker_2e395f67e039a8b52dc57e3b94ff7be6.bindPopup(popup_31465dc9a2d333e2ac0ecc7a1c84f12c)
+        ;
+
+        
+    
+    
+            var circle_marker_b30461c10f22c8fe9e63de4d4c910d9f = L.circleMarker(
+                [-12.065463095278751, -77.01696724048995],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_6cd8e7cb27713e15ab48538e3ca96388 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4e7422f037858e4bfe2b74f8178f1903 = $(`<div id="html_4e7422f037858e4bfe2b74f8178f1903" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #34</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_6cd8e7cb27713e15ab48538e3ca96388.setContent(html_4e7422f037858e4bfe2b74f8178f1903);
+            
+        
+
+        circle_marker_b30461c10f22c8fe9e63de4d4c910d9f.bindPopup(popup_6cd8e7cb27713e15ab48538e3ca96388)
+        ;
+
+        
+    
+    
+            var circle_marker_27475d790c788fb70bcdffa35e2fcde0 = L.circleMarker(
+                [-12.063454245504142, -77.01415701822273],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_0e04fbd2cfe5566f2d3a3385cb19c34e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c1a5d1aa4ad0b2fa01620ac65f7b2d3c = $(`<div id="html_c1a5d1aa4ad0b2fa01620ac65f7b2d3c" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #35</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_0e04fbd2cfe5566f2d3a3385cb19c34e.setContent(html_c1a5d1aa4ad0b2fa01620ac65f7b2d3c);
+            
+        
+
+        circle_marker_27475d790c788fb70bcdffa35e2fcde0.bindPopup(popup_0e04fbd2cfe5566f2d3a3385cb19c34e)
+        ;
+
+        
+    
+    
+            var circle_marker_534b7a1164e687a401908e1f4ec44e9a = L.circleMarker(
+                [-12.06578032633048, -77.01622304692941],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_a474eac76585358df016d2965626300a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b336f41662b187fd966544d095b995ef = $(`<div id="html_b336f41662b187fd966544d095b995ef" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #36</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_a474eac76585358df016d2965626300a.setContent(html_b336f41662b187fd966544d095b995ef);
+            
+        
+
+        circle_marker_534b7a1164e687a401908e1f4ec44e9a.bindPopup(popup_a474eac76585358df016d2965626300a)
+        ;
+
+        
+    
+    
+            var circle_marker_ff0c947adb73c2cfe41059ab1385d493 = L.circleMarker(
+                [-12.063580585025258, -77.0149810531416],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_3df82b8427f1c1d5927641185d9b8610 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e99eaef7c70d2358aba9e0bc8acc4550 = $(`<div id="html_e99eaef7c70d2358aba9e0bc8acc4550" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #37</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_3df82b8427f1c1d5927641185d9b8610.setContent(html_e99eaef7c70d2358aba9e0bc8acc4550);
+            
+        
+
+        circle_marker_ff0c947adb73c2cfe41059ab1385d493.bindPopup(popup_3df82b8427f1c1d5927641185d9b8610)
+        ;
+
+        
+    
+    
+            var circle_marker_77de3f58695f1f3f9d7f6035733e8e16 = L.circleMarker(
+                [-12.063329222799359, -77.01854141586277],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_3966d415308f08005aaac52450dc6941 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1c3ef8880b0309117d92ae2533727f11 = $(`<div id="html_1c3ef8880b0309117d92ae2533727f11" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #38</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_3966d415308f08005aaac52450dc6941.setContent(html_1c3ef8880b0309117d92ae2533727f11);
+            
+        
+
+        circle_marker_77de3f58695f1f3f9d7f6035733e8e16.bindPopup(popup_3966d415308f08005aaac52450dc6941)
+        ;
+
+        
+    
+    
+            var circle_marker_06b78fa5be48c199f64868e7cafa7d41 = L.circleMarker(
+                [-12.059060678603856, -77.01422055647714],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_e499260f4025f992f05a768f96808f49 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8e3e68335d8b1826ee872f20ff24f7f7 = $(`<div id="html_8e3e68335d8b1826ee872f20ff24f7f7" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #39</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_e499260f4025f992f05a768f96808f49.setContent(html_8e3e68335d8b1826ee872f20ff24f7f7);
+            
+        
+
+        circle_marker_06b78fa5be48c199f64868e7cafa7d41.bindPopup(popup_e499260f4025f992f05a768f96808f49)
+        ;
+
+        
+    
+    
+            var circle_marker_8694578b7c2a46bd61aba7759ff181b6 = L.circleMarker(
+                [-12.0590752268582, -77.01629494513696],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_6395407ec256b7f728ea2f10bfb05b25 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_33f5058c6ba2a833a9b4dc8615f7433f = $(`<div id="html_33f5058c6ba2a833a9b4dc8615f7433f" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #40</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_6395407ec256b7f728ea2f10bfb05b25.setContent(html_33f5058c6ba2a833a9b4dc8615f7433f);
+            
+        
+
+        circle_marker_8694578b7c2a46bd61aba7759ff181b6.bindPopup(popup_6395407ec256b7f728ea2f10bfb05b25)
+        ;
+
+        
+    
+    
+            var circle_marker_1f8dd0ab391704582f000a1bb3e007ea = L.circleMarker(
+                [-12.06125537948485, -77.01571920023555],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_f877ecea1496e86080f89b92d28164d2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_08695ebf0090270df72d259db3d02e67 = $(`<div id="html_08695ebf0090270df72d259db3d02e67" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #41</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_f877ecea1496e86080f89b92d28164d2.setContent(html_08695ebf0090270df72d259db3d02e67);
+            
+        
+
+        circle_marker_1f8dd0ab391704582f000a1bb3e007ea.bindPopup(popup_f877ecea1496e86080f89b92d28164d2)
+        ;
+
+        
+    
+    
+            var circle_marker_b4b1ec42e34246694a64a8cbc0045ad3 = L.circleMarker(
+                [-12.061317306816296, -77.01722670603321],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_12ef6f896b020dd1a6d35197816f4960 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1570586e119f6102a669bd4eb5947caa = $(`<div id="html_1570586e119f6102a669bd4eb5947caa" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #42</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_12ef6f896b020dd1a6d35197816f4960.setContent(html_1570586e119f6102a669bd4eb5947caa);
+            
+        
+
+        circle_marker_b4b1ec42e34246694a64a8cbc0045ad3.bindPopup(popup_12ef6f896b020dd1a6d35197816f4960)
+        ;
+
+        
+    
+    
+            var circle_marker_025c8979d71a93f7d97ec2184f3327b1 = L.circleMarker(
+                [-12.063693029528473, -77.01864760130769],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_ca0fc1117587312b57429f52db09a16c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_be673aec89289cafbe8213c87639b867 = $(`<div id="html_be673aec89289cafbe8213c87639b867" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #43</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_ca0fc1117587312b57429f52db09a16c.setContent(html_be673aec89289cafbe8213c87639b867);
+            
+        
+
+        circle_marker_025c8979d71a93f7d97ec2184f3327b1.bindPopup(popup_ca0fc1117587312b57429f52db09a16c)
+        ;
+
+        
+    
+    
+            var circle_marker_af9fb75f2b71d8bc34fffc2ba5215673 = L.circleMarker(
+                [-12.06367549951479, -77.01734754474758],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_4e5a2a5d1b0a016069673a2a31150779 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_786642eeb198816bb6779e344718c973 = $(`<div id="html_786642eeb198816bb6779e344718c973" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #44</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_4e5a2a5d1b0a016069673a2a31150779.setContent(html_786642eeb198816bb6779e344718c973);
+            
+        
+
+        circle_marker_af9fb75f2b71d8bc34fffc2ba5215673.bindPopup(popup_4e5a2a5d1b0a016069673a2a31150779)
+        ;
+
+        
+    
+    
+            var circle_marker_cbcabaea8ca1e6357271119ab7d063f7 = L.circleMarker(
+                [-12.061639374490698, -77.01540695788067],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_b366400da86e327d391517d1adbf3079 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0d5390b12ebb21a2d3a074f02219a920 = $(`<div id="html_0d5390b12ebb21a2d3a074f02219a920" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #45</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_b366400da86e327d391517d1adbf3079.setContent(html_0d5390b12ebb21a2d3a074f02219a920);
+            
+        
+
+        circle_marker_cbcabaea8ca1e6357271119ab7d063f7.bindPopup(popup_b366400da86e327d391517d1adbf3079)
+        ;
+
+        
+    
+    
+            var circle_marker_14e369fc12f6e5bf0da93d8b657b399c = L.circleMarker(
+                [-12.062298942020679, -77.01704321214226],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_e327f8363b1753aac363657274b97c36 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2af2e6f88aaef2f43ba254afb04ce151 = $(`<div id="html_2af2e6f88aaef2f43ba254afb04ce151" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #46</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_e327f8363b1753aac363657274b97c36.setContent(html_2af2e6f88aaef2f43ba254afb04ce151);
+            
+        
+
+        circle_marker_14e369fc12f6e5bf0da93d8b657b399c.bindPopup(popup_e327f8363b1753aac363657274b97c36)
+        ;
+
+        
+    
+    
+            var circle_marker_a5ce8985ce768c956474efb903fb5911 = L.circleMarker(
+                [-12.06558599151444, -77.01292708512545],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_a12854898fb632ac23ba1034489d5e06 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_193e57db15ad0b18a90537ea17eca182 = $(`<div id="html_193e57db15ad0b18a90537ea17eca182" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #47</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_a12854898fb632ac23ba1034489d5e06.setContent(html_193e57db15ad0b18a90537ea17eca182);
+            
+        
+
+        circle_marker_a5ce8985ce768c956474efb903fb5911.bindPopup(popup_a12854898fb632ac23ba1034489d5e06)
+        ;
+
+        
+    
+    
+            var circle_marker_73c662079a49911a95ac5af3043e14a0 = L.circleMarker(
+                [-12.063382337250896, -77.01582970821471],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_3e2e3da6d4a97cc8a3db5c25847eacb2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a9fc298b8bb69f21675d60a056ebc3c4 = $(`<div id="html_a9fc298b8bb69f21675d60a056ebc3c4" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #48</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_3e2e3da6d4a97cc8a3db5c25847eacb2.setContent(html_a9fc298b8bb69f21675d60a056ebc3c4);
+            
+        
+
+        circle_marker_73c662079a49911a95ac5af3043e14a0.bindPopup(popup_3e2e3da6d4a97cc8a3db5c25847eacb2)
+        ;
+
+        
+    
+    
+            var circle_marker_8d4451a70ca1d4be127191be56853c9e = L.circleMarker(
+                [-12.058283354192618, -77.0161553570506],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_838413d81589aac206116ede8f56f1b2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_41f8f0b1a532c7830b7842be38e9865c = $(`<div id="html_41f8f0b1a532c7830b7842be38e9865c" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #49</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_838413d81589aac206116ede8f56f1b2.setContent(html_41f8f0b1a532c7830b7842be38e9865c);
+            
+        
+
+        circle_marker_8d4451a70ca1d4be127191be56853c9e.bindPopup(popup_838413d81589aac206116ede8f56f1b2)
+        ;
+
+        
+    
+    
+            var circle_marker_3406522dd007723b8057917db3f653fc = L.circleMarker(
+                [-12.063553817556167, -77.01568121808475],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_b2904222197d525cdedf1d14ce7e367e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8a520400345a9d7be58e0136d63ca98e = $(`<div id="html_8a520400345a9d7be58e0136d63ca98e" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #50</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_b2904222197d525cdedf1d14ce7e367e.setContent(html_8a520400345a9d7be58e0136d63ca98e);
+            
+        
+
+        circle_marker_3406522dd007723b8057917db3f653fc.bindPopup(popup_b2904222197d525cdedf1d14ce7e367e)
+        ;
+
+        
+    
+    
+            var circle_marker_948b13f8271ce036206e50d16237a1a6 = L.circleMarker(
+                [-12.061474908560939, -77.013676397497],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_f4fa8fd5543896a0cbf32fda610c59f0 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_edd27bd95987f02e436121416461ccae = $(`<div id="html_edd27bd95987f02e436121416461ccae" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #51</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_f4fa8fd5543896a0cbf32fda610c59f0.setContent(html_edd27bd95987f02e436121416461ccae);
+            
+        
+
+        circle_marker_948b13f8271ce036206e50d16237a1a6.bindPopup(popup_f4fa8fd5543896a0cbf32fda610c59f0)
+        ;
+
+        
+    
+    
+            var circle_marker_a2c575e09fdfca9580f16640493ac01b = L.circleMarker(
+                [-12.065555221811696, -77.01601281515332],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_47d2a8c989b3b55369d4a4b1aa1bf254 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e3a014b0c0c3742f08cc8b3fc3298b6e = $(`<div id="html_e3a014b0c0c3742f08cc8b3fc3298b6e" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #52</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_47d2a8c989b3b55369d4a4b1aa1bf254.setContent(html_e3a014b0c0c3742f08cc8b3fc3298b6e);
+            
+        
+
+        circle_marker_a2c575e09fdfca9580f16640493ac01b.bindPopup(popup_47d2a8c989b3b55369d4a4b1aa1bf254)
+        ;
+
+        
+    
+    
+            var circle_marker_40fba72930a5610a1592202220743ca5 = L.circleMarker(
+                [-12.059844407051045, -77.0144883831377],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_69eb2cf77d83237d92fd9e7be87a4b55 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c1f7f8cfd2302687940ae3c9670481bb = $(`<div id="html_c1f7f8cfd2302687940ae3c9670481bb" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #53</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_69eb2cf77d83237d92fd9e7be87a4b55.setContent(html_c1f7f8cfd2302687940ae3c9670481bb);
+            
+        
+
+        circle_marker_40fba72930a5610a1592202220743ca5.bindPopup(popup_69eb2cf77d83237d92fd9e7be87a4b55)
+        ;
+
+        
+    
+    
+            var circle_marker_bcaf7ec5f0a78a31cfa31eec686b1a92 = L.circleMarker(
+                [-12.061411824159574, -77.01857743352059],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_b51c6352ae34e3b30c4debc85bdafab3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bce3809f46a9b95302c899d6b1a4d9e9 = $(`<div id="html_bce3809f46a9b95302c899d6b1a4d9e9" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #54</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_b51c6352ae34e3b30c4debc85bdafab3.setContent(html_bce3809f46a9b95302c899d6b1a4d9e9);
+            
+        
+
+        circle_marker_bcaf7ec5f0a78a31cfa31eec686b1a92.bindPopup(popup_b51c6352ae34e3b30c4debc85bdafab3)
+        ;
+
+        
+    
+    
+            var circle_marker_aad057782a7cff3b8895374b283bdb18 = L.circleMarker(
+                [-12.063294748869733, -77.01542085589304],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_ad1bdbb00235b240f448ad3e6cb98d49 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_50c2fedc1f81bcc2e534c3c5f74d9dea = $(`<div id="html_50c2fedc1f81bcc2e534c3c5f74d9dea" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #55</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_ad1bdbb00235b240f448ad3e6cb98d49.setContent(html_50c2fedc1f81bcc2e534c3c5f74d9dea);
+            
+        
+
+        circle_marker_aad057782a7cff3b8895374b283bdb18.bindPopup(popup_ad1bdbb00235b240f448ad3e6cb98d49)
+        ;
+
+        
+    
+    
+            var circle_marker_06eae446ec9404530a6f14061219e8e1 = L.circleMarker(
+                [-12.063702161020602, -77.01572599508036],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_dcafa372c3e7ffef69b08e9e64c086e2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_60581cbd0615df94fdf056ea10cbcc78 = $(`<div id="html_60581cbd0615df94fdf056ea10cbcc78" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #56</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_dcafa372c3e7ffef69b08e9e64c086e2.setContent(html_60581cbd0615df94fdf056ea10cbcc78);
+            
+        
+
+        circle_marker_06eae446ec9404530a6f14061219e8e1.bindPopup(popup_dcafa372c3e7ffef69b08e9e64c086e2)
+        ;
+
+        
+    
+    
+            var circle_marker_3a3955775ba4aaf0296d19d3a99527b9 = L.circleMarker(
+                [-12.060712264597722, -77.01784483759972],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_72b8195b97f91575afe1c1ad7e37500b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bc5e0fb6733de985b8279dbdb396e0e1 = $(`<div id="html_bc5e0fb6733de985b8279dbdb396e0e1" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #57</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_72b8195b97f91575afe1c1ad7e37500b.setContent(html_bc5e0fb6733de985b8279dbdb396e0e1);
+            
+        
+
+        circle_marker_3a3955775ba4aaf0296d19d3a99527b9.bindPopup(popup_72b8195b97f91575afe1c1ad7e37500b)
+        ;
+
+        
+    
+    
+            var circle_marker_e2cdbe50f45bfc093dfd624fee9fa22d = L.circleMarker(
+                [-12.065696178638767, -77.01677310467761],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_bbcd4fba0d58236069a94b9e7c201b93 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_08482c592cf28936b4add54bcde5e9c9 = $(`<div id="html_08482c592cf28936b4add54bcde5e9c9" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #58</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_bbcd4fba0d58236069a94b9e7c201b93.setContent(html_08482c592cf28936b4add54bcde5e9c9);
+            
+        
+
+        circle_marker_e2cdbe50f45bfc093dfd624fee9fa22d.bindPopup(popup_bbcd4fba0d58236069a94b9e7c201b93)
+        ;
+
+        
+    
+    
+            var circle_marker_1232f8b1bdeec7ce9c47d962200a767f = L.circleMarker(
+                [-12.065235489817763, -77.01772658314857],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_1afc04f335c54b749e3160373a1095ee = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b048cae76376b70e674178bab7401cd2 = $(`<div id="html_b048cae76376b70e674178bab7401cd2" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #59</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_1afc04f335c54b749e3160373a1095ee.setContent(html_b048cae76376b70e674178bab7401cd2);
+            
+        
+
+        circle_marker_1232f8b1bdeec7ce9c47d962200a767f.bindPopup(popup_1afc04f335c54b749e3160373a1095ee)
+        ;
+
+        
+    
+    
+            var circle_marker_82c0eb5f32e18ca06829a06262a470dd = L.circleMarker(
+                [-12.059013383230658, -77.01660781017272],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_d168a32873c55fdc43629aa1ef520ad6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3a92d1215a9753a605806b774673c685 = $(`<div id="html_3a92d1215a9753a605806b774673c685" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #60</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_d168a32873c55fdc43629aa1ef520ad6.setContent(html_3a92d1215a9753a605806b774673c685);
+            
+        
+
+        circle_marker_82c0eb5f32e18ca06829a06262a470dd.bindPopup(popup_d168a32873c55fdc43629aa1ef520ad6)
+        ;
+
+        
+    
+    
+            var circle_marker_f67f150efdc85c8eb6f848137899416f = L.circleMarker(
+                [-12.064349845206563, -77.01428502297868],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_f2339c381e27babcaf94050f9f867c24 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3f90cdb4595475c8b3a36bec819d9f92 = $(`<div id="html_3f90cdb4595475c8b3a36bec819d9f92" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #61</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_f2339c381e27babcaf94050f9f867c24.setContent(html_3f90cdb4595475c8b3a36bec819d9f92);
+            
+        
+
+        circle_marker_f67f150efdc85c8eb6f848137899416f.bindPopup(popup_f2339c381e27babcaf94050f9f867c24)
+        ;
+
+        
+    
+    
+            var circle_marker_ec0b6e3fd4fcf3840724eea9a763e133 = L.circleMarker(
+                [-12.06524496332485, -77.01433238055535],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_4c648eb9d3b5ab6d3b857e1c9340e94b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9628d046f4f688ee8320a30d1db2d5eb = $(`<div id="html_9628d046f4f688ee8320a30d1db2d5eb" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #62</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_4c648eb9d3b5ab6d3b857e1c9340e94b.setContent(html_9628d046f4f688ee8320a30d1db2d5eb);
+            
+        
+
+        circle_marker_ec0b6e3fd4fcf3840724eea9a763e133.bindPopup(popup_4c648eb9d3b5ab6d3b857e1c9340e94b)
+        ;
+
+        
+    
+    
+            var circle_marker_7e335be053899ea888b9bda4a33fb1ac = L.circleMarker(
+                [-12.062341717652474, -77.01521046597233],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_c9aef0d8feb701896b1fbe40d9cd0048 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b5f1d14cfd97a19a0f3dd58d4ab0e225 = $(`<div id="html_b5f1d14cfd97a19a0f3dd58d4ab0e225" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #63</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_c9aef0d8feb701896b1fbe40d9cd0048.setContent(html_b5f1d14cfd97a19a0f3dd58d4ab0e225);
+            
+        
+
+        circle_marker_7e335be053899ea888b9bda4a33fb1ac.bindPopup(popup_c9aef0d8feb701896b1fbe40d9cd0048)
+        ;
+
+        
+    
+    
+            var circle_marker_94aec5a0c1d547bfb81e7d0fcbacc58b = L.circleMarker(
+                [-12.064919038461717, -77.01769579106744],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_6143f5ed18c1f25074c1e992df76995c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c86c7cb7d5090b171c256f422c0015cc = $(`<div id="html_c86c7cb7d5090b171c256f422c0015cc" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #64</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_6143f5ed18c1f25074c1e992df76995c.setContent(html_c86c7cb7d5090b171c256f422c0015cc);
+            
+        
+
+        circle_marker_94aec5a0c1d547bfb81e7d0fcbacc58b.bindPopup(popup_6143f5ed18c1f25074c1e992df76995c)
+        ;
+
+        
+    
+    
+            var circle_marker_8c9a943a17aacc74aad1c3d456642c9f = L.circleMarker(
+                [-12.060939422988254, -77.01850823196241],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_34b43e0eacc315e9996eaa9c7432bb55 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_43270fd3387ba90b079fc94cc8651de0 = $(`<div id="html_43270fd3387ba90b079fc94cc8651de0" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #65</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_34b43e0eacc315e9996eaa9c7432bb55.setContent(html_43270fd3387ba90b079fc94cc8651de0);
+            
+        
+
+        circle_marker_8c9a943a17aacc74aad1c3d456642c9f.bindPopup(popup_34b43e0eacc315e9996eaa9c7432bb55)
+        ;
+
+        
+    
+    
+            var circle_marker_d8343748fe2c1fba1f8290f87ba90336 = L.circleMarker(
+                [-12.064111099937577, -77.01554554890264],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_742e04599fb1b66548396ff58685c086 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7e7fe8960dff409551e83cc600a4b04b = $(`<div id="html_7e7fe8960dff409551e83cc600a4b04b" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #66</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_742e04599fb1b66548396ff58685c086.setContent(html_7e7fe8960dff409551e83cc600a4b04b);
+            
+        
+
+        circle_marker_d8343748fe2c1fba1f8290f87ba90336.bindPopup(popup_742e04599fb1b66548396ff58685c086)
+        ;
+
+        
+    
+    
+            var circle_marker_79aa30c65e445cf217d3272fb296a71d = L.circleMarker(
+                [-12.06428581325384, -77.01651153079057],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_3dd682f5b360c595cc70abd4a731e893 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b4eaa31db3634d7afd4c681033194f65 = $(`<div id="html_b4eaa31db3634d7afd4c681033194f65" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #67</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_3dd682f5b360c595cc70abd4a731e893.setContent(html_b4eaa31db3634d7afd4c681033194f65);
+            
+        
+
+        circle_marker_79aa30c65e445cf217d3272fb296a71d.bindPopup(popup_3dd682f5b360c595cc70abd4a731e893)
+        ;
+
+        
+    
+    
+            var circle_marker_59d34ac6224a55e716ecac9c5f647beb = L.circleMarker(
+                [-12.058722137704772, -77.0132478587628],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_a07535d02f929578fe7c82ca2c3b2942 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2c312b6c4090e3b90606fae70899bf3f = $(`<div id="html_2c312b6c4090e3b90606fae70899bf3f" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #68</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_a07535d02f929578fe7c82ca2c3b2942.setContent(html_2c312b6c4090e3b90606fae70899bf3f);
+            
+        
+
+        circle_marker_59d34ac6224a55e716ecac9c5f647beb.bindPopup(popup_a07535d02f929578fe7c82ca2c3b2942)
+        ;
+
+        
+    
+    
+            var circle_marker_7261ba6f9928f0bca89157f4d3aed8a7 = L.circleMarker(
+                [-12.0615660006034, -77.01559917469007],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_8e334efa3afb7057c31a8adfbe885771 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6e700f7d5dc60c549cb1cab92e951da2 = $(`<div id="html_6e700f7d5dc60c549cb1cab92e951da2" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #69</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_8e334efa3afb7057c31a8adfbe885771.setContent(html_6e700f7d5dc60c549cb1cab92e951da2);
+            
+        
+
+        circle_marker_7261ba6f9928f0bca89157f4d3aed8a7.bindPopup(popup_8e334efa3afb7057c31a8adfbe885771)
+        ;
+
+        
+    
+    
+            var circle_marker_5737dc6516881c7cf1bc9f710bb2e5b6 = L.circleMarker(
+                [-12.065981119802933, -77.01293260441959],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_dac128e06bce146520218cad1449128a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9500bdc019f344d9b5491bf7678f9478 = $(`<div id="html_9500bdc019f344d9b5491bf7678f9478" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #70</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_dac128e06bce146520218cad1449128a.setContent(html_9500bdc019f344d9b5491bf7678f9478);
+            
+        
+
+        circle_marker_5737dc6516881c7cf1bc9f710bb2e5b6.bindPopup(popup_dac128e06bce146520218cad1449128a)
+        ;
+
+        
+    
+    
+            var circle_marker_b7f9922c0dc88adc33aa596fa5d7ae07 = L.circleMarker(
+                [-12.061515768767734, -77.01404945802234],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_974d6e876782b5514a5b40ebcdd6a2f6 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_11a5d452b345bdfdd6a99479f3591a19 = $(`<div id="html_11a5d452b345bdfdd6a99479f3591a19" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #71</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_974d6e876782b5514a5b40ebcdd6a2f6.setContent(html_11a5d452b345bdfdd6a99479f3591a19);
+            
+        
+
+        circle_marker_b7f9922c0dc88adc33aa596fa5d7ae07.bindPopup(popup_974d6e876782b5514a5b40ebcdd6a2f6)
+        ;
+
+        
+    
+    
+            var circle_marker_15d029fa266e058f43cd555f53e15eeb = L.circleMarker(
+                [-12.061607541117787, -77.01353598855061],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_61a5b3bb87457722054e7e5adefb5375 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3d0c4369c0821220f2cdaa5297889665 = $(`<div id="html_3d0c4369c0821220f2cdaa5297889665" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #72</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_61a5b3bb87457722054e7e5adefb5375.setContent(html_3d0c4369c0821220f2cdaa5297889665);
+            
+        
+
+        circle_marker_15d029fa266e058f43cd555f53e15eeb.bindPopup(popup_61a5b3bb87457722054e7e5adefb5375)
+        ;
+
+        
+    
+    
+            var circle_marker_0d444a389226a9286a06c4347f958ece = L.circleMarker(
+                [-12.061426433371754, -77.01454690104178],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_6820154f141c3cf3ad82810849f51592 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8f2f0d3bceb193a04e14f9d51710d8ec = $(`<div id="html_8f2f0d3bceb193a04e14f9d51710d8ec" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #73</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_6820154f141c3cf3ad82810849f51592.setContent(html_8f2f0d3bceb193a04e14f9d51710d8ec);
+            
+        
+
+        circle_marker_0d444a389226a9286a06c4347f958ece.bindPopup(popup_6820154f141c3cf3ad82810849f51592)
+        ;
+
+        
+    
+    
+            var circle_marker_9596b0bd7d9419f2ec57c19e4a549f4b = L.circleMarker(
+                [-12.064911732389147, -77.01622929556619],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_e2f418bc044258c2ab73e3d61e3042f3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c1da0b7b254909b6ddf6d5eed5afb77b = $(`<div id="html_c1da0b7b254909b6ddf6d5eed5afb77b" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #74</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_e2f418bc044258c2ab73e3d61e3042f3.setContent(html_c1da0b7b254909b6ddf6d5eed5afb77b);
+            
+        
+
+        circle_marker_9596b0bd7d9419f2ec57c19e4a549f4b.bindPopup(popup_e2f418bc044258c2ab73e3d61e3042f3)
+        ;
+
+        
+    
+    
+            var circle_marker_ca2fec13ce5118e2bd4d971d09d65fa0 = L.circleMarker(
+                [-12.060548879469259, -77.01817228153286],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_86be405fb7bc92ad530868bc1cfb9d52 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d33b196df1e1b16318af934a6442e4c5 = $(`<div id="html_d33b196df1e1b16318af934a6442e4c5" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #75</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_86be405fb7bc92ad530868bc1cfb9d52.setContent(html_d33b196df1e1b16318af934a6442e4c5);
+            
+        
+
+        circle_marker_ca2fec13ce5118e2bd4d971d09d65fa0.bindPopup(popup_86be405fb7bc92ad530868bc1cfb9d52)
+        ;
+
+        
+    
+    
+            var circle_marker_92e3a93e84d7333939f722ac375ce6d7 = L.circleMarker(
+                [-12.062583158097802, -77.01780278711377],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_a5a12c26d3de724b748c674f1e093177 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_264851b63299431b40a19a6c256fec88 = $(`<div id="html_264851b63299431b40a19a6c256fec88" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #76</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_a5a12c26d3de724b748c674f1e093177.setContent(html_264851b63299431b40a19a6c256fec88);
+            
+        
+
+        circle_marker_92e3a93e84d7333939f722ac375ce6d7.bindPopup(popup_a5a12c26d3de724b748c674f1e093177)
+        ;
+
+        
+    
+    
+            var circle_marker_f75477fcb35a1d0bcca345a4b23964c5 = L.circleMarker(
+                [-12.062044170965887, -77.01388578481519],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_560b989b83f5abca11ff0967b9d90328 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_409d514198d01fd0855653166df0bc95 = $(`<div id="html_409d514198d01fd0855653166df0bc95" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #77</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_560b989b83f5abca11ff0967b9d90328.setContent(html_409d514198d01fd0855653166df0bc95);
+            
+        
+
+        circle_marker_f75477fcb35a1d0bcca345a4b23964c5.bindPopup(popup_560b989b83f5abca11ff0967b9d90328)
+        ;
+
+        
+    
+    
+            var circle_marker_806eccc40a9266e5907220b13fa5aad7 = L.circleMarker(
+                [-12.065379146122204, -77.01399958749583],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_284a70f38d121b37d249b48d1c5790ee = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b38f59f2740d4c76f5e0dc432ece8def = $(`<div id="html_b38f59f2740d4c76f5e0dc432ece8def" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #78</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_284a70f38d121b37d249b48d1c5790ee.setContent(html_b38f59f2740d4c76f5e0dc432ece8def);
+            
+        
+
+        circle_marker_806eccc40a9266e5907220b13fa5aad7.bindPopup(popup_284a70f38d121b37d249b48d1c5790ee)
+        ;
+
+        
+    
+    
+            var circle_marker_0488ce900b89c30b58dc6f81a1f438a4 = L.circleMarker(
+                [-12.061578989168337, -77.01526391372991],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_e7f2f12b95dcc304c00809d21192b859 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c91abaf05a4e240531a35fb08f738e15 = $(`<div id="html_c91abaf05a4e240531a35fb08f738e15" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #79</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_e7f2f12b95dcc304c00809d21192b859.setContent(html_c91abaf05a4e240531a35fb08f738e15);
+            
+        
+
+        circle_marker_0488ce900b89c30b58dc6f81a1f438a4.bindPopup(popup_e7f2f12b95dcc304c00809d21192b859)
+        ;
+
+        
+    
+    
+            var circle_marker_24707f880fb1996d00f5a0af5b3363e8 = L.circleMarker(
+                [-12.064515194742269, -77.01618329046796],
+                {"bubblingMouseEvents": true, "color": "#1d91c0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d91c0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4.5, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_67cae42284ce03c5dc71859600ef7b3c);
+        
+    
+        var popup_42b7a6a5d06bd803f486095f1edf154c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_60b2a4ece858c5a94ae45dcf17b99905 = $(`<div id="html_60b2a4ece858c5a94ae45dcf17b99905" style="width: 100.0%; height: 100.0%;"><b>Galería/Local Comercial #80</b><br>Tipo: Establecimiento Fijo</div>`)[0];
+                popup_42b7a6a5d06bd803f486095f1edf154c.setContent(html_60b2a4ece858c5a94ae45dcf17b99905);
+            
+        
+
+        circle_marker_24707f880fb1996d00f5a0af5b3363e8.bindPopup(popup_42b7a6a5d06bd803f486095f1edf154c)
+        ;
+
+        
+    
+    
+            marker_cluster_67cae42284ce03c5dc71859600ef7b3c.addTo(map_8aa0ae0f5b0fabdea5d1ca4148743ec1);
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topright",
+  "title": "Pantalla completa",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_8aa0ae0f5b0fabdea5d1ca4148743ec1);
+        
+    
+            tile_layer_41f08a8decabccbc1aef5c0916b55599.addTo(map_8aa0ae0f5b0fabdea5d1ca4148743ec1);
+        
+    
+            heat_map_e9aeeea4272350c896876648c587919c.addTo(map_8aa0ae0f5b0fabdea5d1ca4148743ec1);
+        
+    
+            marker_cluster_67cae42284ce03c5dc71859600ef7b3c.addTo(map_8aa0ae0f5b0fabdea5d1ca4148743ec1);
+        
+</script>
+</html>
